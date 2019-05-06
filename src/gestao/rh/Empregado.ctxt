@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Empregado
+comment0.text=\r\n\r\n\ @author\ Pedro\ Grilo\r\n
+comment1.params=
+comment1.target=int\ getCodigo()
+comment2.params=
+comment2.target=java.lang.String\ getNome()
+comment3.params=codigo
+comment3.target=void\ setCodigo(int)
+comment4.params=nome
+comment4.target=void\ setNome(java.lang.String)
+comment5.params=mes
+comment5.target=int\ getNumeroDiasQueTrabalhou(int)
+comment6.params=dias\ mes\ anos
+comment6.target=void\ setNumeroDeDiasQueTrabalhou(int,\ int,\ int)
+numComments=7

@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=MesClass
+comment0.text=\r\n\r\n\ @author\ Pedro\ Grilo\r\n
+comment1.params=mesExtenso
+comment1.target=MesClass(java.lang.String)
+comment2.params=mes
+comment2.target=void\ setMes(java.lang.String)
+comment3.params=
+comment3.target=int\ getDiasQueTrabalhou()
+comment4.params=diasQueTrabalhou
+comment4.target=void\ setDiasQueTrabalhou(int)
+numComments=5

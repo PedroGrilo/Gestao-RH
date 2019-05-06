@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- 
 
 /**
  *
@@ -13,5 +12,5 @@ public interface Ano {
 
     int getAno();
 
-    void setDiasQueTrabalhou(int diasQueTrabalhou, int mes);
+    void setDiasQueTrabalhou(int diasQueTrabalhou, String mes);
 }

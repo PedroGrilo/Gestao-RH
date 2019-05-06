@@ -15,12 +15,14 @@ public class AnoClass implements Ano {
     private ArrayList<Mes> meses;
     private int ano;
     private String[] months = {"Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+    private ArrayList<String> monthsAdd;
 
     public AnoClass(Date DataEntradaEmpresa, int anoExtenso) {
 
         ano = anoExtenso;
         meses = new ArrayList<Mes>();
         Date dataAtual = new DateClass();
+        monthsAdd = new ArrayList<>();
 
         int nrMeses = 12;
         int startMonth = DataEntradaEmpresa.getMonth() - 1;
@@ -29,16 +31,19 @@ public class AnoClass implements Ano {
             nrMeses -= DataEntradaEmpresa.getMonth();
             for (int i = 0; i <= nrMeses; i++) {
                 meses.add(new MesClass(months[startMonth + i]));
+                monthsAdd.add(months[startMonth + i]);
             }
 
         } else if (dataAtual.getYear() == anoExtenso) {
             nrMeses = dataAtual.getMonth() - 1;
             for (int i = 0; i < nrMeses; i++) {
                 meses.add(new MesClass(months[i]));
+                monthsAdd.add(months[i]);
             }
         } else {
             for (int i = 0; i < nrMeses; i++) {
                 meses.add(new MesClass(months[i]));
+                monthsAdd.add(months[i]);
             }
         }
 
@@ -52,12 +57,19 @@ public class AnoClass implements Ano {
 
         for (int i = 0; i < nrMeses; i++) {
             meses.add(new MesClass(months[startMonth + i]));
+            monthsAdd.add(months[startMonth + i]);
         };
 
     }
 
-    public void setDiasQueTrabalhou(int diasQueTrabalhou, int mes) {
-        meses.get(mes - 1).setDiasQueTrabalhou(diasQueTrabalhou);
+    public void setDiasQueTrabalhou(int diasQueTrabalhou, String mes) {
+        for (int i = 0; i < monthsAdd.size(); i++) {
+            if (monthsAdd.get(i) == mes) {
+                meses.get(i).setDiasQueTrabalhou(diasQueTrabalhou);
+                break;
+            }
+        }
+
     }
 
     public int getAno() {

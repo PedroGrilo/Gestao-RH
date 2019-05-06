@@ -39,7 +39,7 @@ public abstract class EmpregadoAbsClass implements Empregado {
         }
     }
 
-    public void setNumeroDeDiasQueTrabalhou(int setDiasDeTrabalho, int setMes, int setAno) {
+    public void setNumeroDeDiasQueTrabalhou(int setDiasDeTrabalho, String setMes, int setAno) {
 
         for (Ano anoToCompare : ano) {
             if (anoToCompare.getAno() == setAno) {

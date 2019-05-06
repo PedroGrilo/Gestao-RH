@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Ano
+comment0.text=\r\n\r\n\ @author\ Pedro\ Grilo\r\n
+comment1.params=
+comment1.target=int\ getAno()
+comment2.params=diasQueTrabalhou\ mes
+comment2.target=void\ setDiasQueTrabalhou(int,\ int)
+numComments=3

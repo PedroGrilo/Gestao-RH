@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- 
 
 /**
  *
@@ -21,6 +20,6 @@ public interface Empregado {
 
     int getNumeroDiasQueTrabalhou(int mes);
 
-    void setNumeroDeDiasQueTrabalhou(int dias, int mes, int anos);
+    void setNumeroDeDiasQueTrabalhou(int dias, String mes, int anos);
 
 }
