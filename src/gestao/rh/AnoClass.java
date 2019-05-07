@@ -69,7 +69,15 @@ public class AnoClass implements Ano {
                 break;
             }
         }
+    }
 
+    public int getDiasQueTrabalhou(String mes) {
+        for (int i = 0; i < monthsAdd.size(); i++) {
+            if (monthsAdd.get(i) == mes) {
+                return meses.get(i).getDiasQueTrabalhou();
+            }
+        }
+        return -1;
     }
 
     public int getAno() {

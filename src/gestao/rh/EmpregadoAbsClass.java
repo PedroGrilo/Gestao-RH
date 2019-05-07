@@ -50,11 +50,14 @@ public abstract class EmpregadoAbsClass implements Empregado {
 
     }
 
-    public int getNumeroDiasQueTrabalhou(int mes) {
-        /*
-         * if (mes > 0 && mes <= 12) { return
-         * meses.get(mes).getDiasQueTrabalhou(); }
-         */ return -1;
+    public int getNumeroDiasQueTrabalhou(String getMes, int getAno) {
+
+        for (Ano anoToCompare : ano) {
+            if (anoToCompare.getAno() == getAno) {
+                return anoToCompare.getDiasQueTrabalhou(getMes);
+            }
+        }
+        return -1;
 
     }
 

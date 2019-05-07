@@ -18,8 +18,8 @@ public interface Empregado {
 
     void setNome(String nome);
 
-    int getNumeroDiasQueTrabalhou(int mes);
-
     void setNumeroDeDiasQueTrabalhou(int dias, String mes, int anos);
+
+    int getNumeroDiasQueTrabalhou(String getMes, int getAno);
 
 }

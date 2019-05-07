@@ -13,4 +13,6 @@ public interface Ano {
     int getAno();
 
     void setDiasQueTrabalhou(int diasQueTrabalhou, String mes);
+
+    int getDiasQueTrabalhou(String mes);
 }
