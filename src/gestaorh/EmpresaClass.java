@@ -19,7 +19,17 @@ public class EmpresaClass implements Empresa {
         empregrado = new ArrayList<>();
     }
 
+    private void checkCodigo(int codigo) throws GestaoException{
+        for(Empregado e : empregrado){
+            if(e.getCodigo()==codigo){
+                throw new GestaoException(GestaoErro.CODIGO_EXISTE);
+            }
+        }
+    }
+
+
     public void addEmpregadoNormal(String nome, int codigo, int day, int month, int year) {
+      checkCodigo(codigo) ;
         Empregado e = new NormalClass(nome, codigo, day, month, year);
         empregrado.add(e);
     }

@@ -18,7 +18,6 @@ public class main {
         System.out.println("2. Comercial");
         System.out.println("3. Motorista");
         System.out.println("4. Gestor");
-        //teste aws
         escolherOpcaoTipoEmpregado(ui, empresa);
     }
     
@@ -31,11 +30,11 @@ public class main {
     private static void escolherMenuTipoEmpregado(Empresa empresa, UserInput ui, int opcao) {
         
         String nome = ui.lerFrase("Introduza o nome > ");
-        int codigo = ui.lerInteiro("Introduza um código > ");
+        int codigo = ui.lerInteiro("Introduza um código");
         System.out.println("Data de Nascimento:");
-        int diaDeNascimento = ui.lerInteiro("Dia > ");
-        int mesDeNascimento = ui.lerInteiro("Mês > ");
-        int anoDeNascimento = ui.lerInteiro("Ano > ");
+        int diaDeNascimento = ui.lerInteiro("Dia");
+        int mesDeNascimento = ui.lerInteiro("Mês");
+        int anoDeNascimento = ui.lerInteiro("Ano");
         
         switch (opcao) {
             case 1:
@@ -55,7 +54,7 @@ public class main {
     }
     
     private static void menuPrincipal() {
-        System.out.println("\n\n\n\n====== Menu Principal ======");
+        System.out.println("\n\n\n\n|====== Menu Principal ======|");
         System.out.println("1. Inserir uma nova ficha de empregado; \n"
                 + "2. Verificar se existe algum empregado com um código dado como parâmetro; \n"
                 + "3. Obter a ficha de empregado de código dado como parâmetro, se existir; \n"
@@ -86,23 +85,26 @@ public class main {
         }
         
     }
+
     
     public static void main(String[] args) {
-        
+    int opcao=-1;
+        do{
         try {
             UserInput ui = new UserInput();
             Empresa empresa = new EmpresaClass();
-            int opcao;
-            do {
+             
+        
                 menuPrincipal();
                 opcao = escolherOpcao(ui, empresa);
                 
-            } while (opcao != 0);
+        
             
         } catch (GestaoException e) {
             System.out.println(e.getMessage());
+            
         }
-        
+    }while(opcao!=0);
     }
     
 }

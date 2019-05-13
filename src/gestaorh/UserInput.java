@@ -17,7 +17,7 @@ public class UserInput {
 
         System.out.println(frase);
         while (!scan.hasNextInt()) {
-            System.out.println(frase);
+            System.out.print(frase + " > ");
             scan.nextLine();
         }
         inteiro = scan.nextInt();

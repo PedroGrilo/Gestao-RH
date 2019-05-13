@@ -23,7 +23,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     private double salarioPorDia;
 
     public EmpregadoAbsClass(String nome, int codigo, int day, int month, int year) {
-
         this.nome = nome;
         this.codigo = codigo;
         dataEntradaEmpresa = new DateClass(day, month, year);

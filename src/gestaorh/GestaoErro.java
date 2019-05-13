@@ -10,7 +10,7 @@ package gestaorh;
  * @author Pedro Grilo
  */
 public enum GestaoErro {
-    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE;
+    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE, CODIGO_EXISTE;
 
     @Override
     public String toString() {
@@ -24,6 +24,8 @@ public enum GestaoErro {
                 return "ERRO: Exitem campos vazios";
             case VENDA_JA_EXISTE:
                 return "ERRO: Não pode existir vendas duplicadas";
+            case CODIGO_EXISTE:
+                return "ERRO: O código já existe, tente outro";
         }
         return "";
     }
