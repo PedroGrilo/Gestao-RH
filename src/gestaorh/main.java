@@ -18,6 +18,7 @@ public class main {
         System.out.println("2. Comercial");
         System.out.println("3. Motorista");
         System.out.println("4. Gestor");
+        //teste aws
         escolherOpcaoTipoEmpregado(ui, empresa);
     }
     
