@@ -10,22 +10,26 @@ package gestaorh;
  * @author Pedro Grilo
  */
 public enum GestaoErro {
-    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE, CODIGO_EXISTE;
+    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE, CODIGO_EXISTE, ERRO_CATEGORIA, EMPREGADO_NOTFOUND;
 
     @Override
     public String toString() {
 
         switch (this) {
             case DATA_EXISTENTE:
-                return "ERRO: A data já existe";
+                return "ERRO: A data já existe.";
             case DATA_INVALIDA:
-                return "ERRO: A data é invalida";
+                return "ERRO: A data é inválida.";
             case CAMPOS_VAZIOS:
-                return "ERRO: Exitem campos vazios";
+                return "ERRO: Exitem campos vazios.";
             case VENDA_JA_EXISTE:
-                return "ERRO: Não pode existir vendas duplicadas";
+                return "ERRO: Não pode existir vendas duplicadas.";
             case CODIGO_EXISTE:
-                return "ERRO: O código já existe, tente outro";
+                return "ERRO: O código já existe.";
+            case ERRO_CATEGORIA:
+                return "ERRO: O empregado não pertence a nenhuma das categorias.";
+            case EMPREGADO_NOTFOUND:
+                return "Erro: Empregado não encontrado.";
         }
         return "";
     }

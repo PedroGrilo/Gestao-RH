@@ -15,10 +15,10 @@ public class UserInput {
     public int lerInteiro(String frase) {
         int inteiro;
 
-        System.out.println(frase);
+        System.out.print(frase + " > ");
         while (!scan.hasNextInt()) {
             System.out.print(frase + " > ");
-            scan.nextLine();
+            scan.next();
         }
         inteiro = scan.nextInt();
         scan.nextLine();
@@ -28,9 +28,9 @@ public class UserInput {
     public double lerDouble(String frase) {
         double real;
 
-        System.out.println(frase);
+        System.out.print(frase + " > ");
         while (!scan.hasNextDouble()) {
-            System.out.println(frase);
+            System.out.print(frase + " > ");
             scan.nextLine();
         }
         real = scan.nextDouble();
@@ -40,11 +40,12 @@ public class UserInput {
     }
 
     public String lerFrase(String frase) {
-        System.out.println(frase);
-        return scan.nextLine();
+        System.out.print(frase + " > ");
+        return scan.next();
     }
+
     public char lerChar(String frase) {
-        System.out.println(frase);
+        System.out.print(frase + " > ");
         return scan.next().charAt(0);
     }
 

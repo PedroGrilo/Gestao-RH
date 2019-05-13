@@ -19,4 +19,25 @@ public interface Empresa {
 
     void addEmpregadoNormal(String nome, int codigo, int day, int month, int year);
 
+    void checkCodigo(int codigo) throws GestaoException;
+
+    String getCategoria(Empregado e) throws GestaoException;
+
+    String getEmpregado(int codigo);
+
+    String printEmpregado(Empregado empregado);
+
+    int getNumeroEmpregados(String categoria);
+
+    double getSalario(Empregado e, int mes, int ano);
+
+    double getSalarioPorDia();
+
+    boolean empregadoIsExists(int codigo);
+
+    String getTotalEmpregados();
+
+    String getTotalEmpregadoFiltrados();
+
+    double getTotalSalariosPagar();
 }
