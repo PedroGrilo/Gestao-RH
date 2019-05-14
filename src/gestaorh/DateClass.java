@@ -114,7 +114,6 @@ public class DateClass implements Date {
     }
 
     public int getYearsTilToday() {  // era getAge
-
         return Period.between(LocalDate.of(year, month, day), LocalDate.of(getCurrentYear(), getCurrentMonth(), getCurrentDay())).getYears();
     }
 

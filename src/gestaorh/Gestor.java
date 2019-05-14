@@ -16,5 +16,6 @@ public interface Gestor extends Empregado {
     double getPremio();
 
     void setPremio(double premio);
-
+    
+    double getSalario();
 }

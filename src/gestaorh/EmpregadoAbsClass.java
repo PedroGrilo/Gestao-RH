@@ -19,21 +19,16 @@ public abstract class EmpregadoAbsClass implements Empregado {
     private int codigo;
     private Date dataEntradaEmpresa;
     private ArrayList<Date> datasQueTrabalhou;
-    private double subsidioAlimentacao;
-    private double bonusPorAntiguidade;
+
 
     public EmpregadoAbsClass(String nome, int codigo, int day, int month, int year) {
         this.nome = nome;
         this.codigo = codigo;
         dataEntradaEmpresa = new DateClass(day, month, year);
         datasQueTrabalhou = new ArrayList<>();
-        bonusPorAntiguidade = 0.05;
-        subsidioAlimentacao = 4.79;
+
     }
 
-    public double getSubsidioAlimentacao() {
-        return subsidioAlimentacao;
-    }
 
     public int getDiasTrabalho(int mes, int ano) {
         int diasDeTrabalho = 0;
@@ -45,6 +40,10 @@ public abstract class EmpregadoAbsClass implements Empregado {
         return diasDeTrabalho;
     }
 
+    public int getAnosTrabalho(){
+      return dataEntradaEmpresa.getYearsTilToday();
+    }
+    
     public int getDiasTrabalhoTotal() {
         int diasDeTrabalho = 0;
         for (Date dTC : datasQueTrabalhou) {
@@ -104,5 +103,7 @@ public abstract class EmpregadoAbsClass implements Empregado {
     public Date getDataEntradaEmpresa() {
         return dataEntradaEmpresa;
     }
+    
+   public abstract double getSalario();
 
 }

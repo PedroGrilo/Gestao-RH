@@ -147,8 +147,7 @@ public class main {
     public static void main(String[] args) {
         int opcao = -1;
         UserInput ui = new UserInput();
-        double salarioPorDia = ui.lerDouble("Introduza o salário por dia");
-        Empresa empresa = new EmpresaClass(salarioPorDia);
+        Empresa empresa = new EmpresaClass();
         do {
             try {
                 menuPrincipal();

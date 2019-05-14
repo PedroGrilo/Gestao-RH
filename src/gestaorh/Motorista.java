@@ -16,5 +16,6 @@ public interface Motorista extends Empregado {
     double getKmPercorridos();
 
     void setKmPercorridos(double kmPercorridos);
-
+    
+    double getSalario();
 }

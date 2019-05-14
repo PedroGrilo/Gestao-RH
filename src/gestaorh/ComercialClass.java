@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Pedro Grilo
  */
-public class ComercialClass extends EmpregadoAbsClass implements Comercial {
+public class ComercialClass extends EmpregadoAbsClass implements Comercial{
 
     private ArrayList<Vendas> vendas;
 
@@ -41,6 +41,11 @@ public class ComercialClass extends EmpregadoAbsClass implements Comercial {
         }
         vendas.add(newVenda);
 
+    }
+    
+     @Override
+    public double getSalario(){
+        return 1;
     }
 
 }

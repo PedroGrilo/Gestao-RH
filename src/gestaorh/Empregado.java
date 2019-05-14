@@ -25,8 +25,10 @@ public interface Empregado {
 
     Date getDataEntradaEmpresa();
 
-    double getSubsidioAlimentacao();
-
     int getDiasTrabalhoTotal();
+    
+    int getAnosTrabalho();
+    
+    double getSalario();
 
 }

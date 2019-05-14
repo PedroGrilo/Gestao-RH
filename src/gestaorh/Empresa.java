@@ -29,7 +29,7 @@ public interface Empresa {
 
     int getNumeroEmpregados(String categoria);
 
-    double getSalario(Empregado e, int mes, int ano);
+    double getSalarioBase(Empregado e, int mes, int ano);
 
     double getSalarioPorDia();
 
@@ -40,4 +40,8 @@ public interface Empresa {
     String getTotalEmpregadoFiltrados();
 
     double getTotalSalariosPagar();
+
+    double getSubsidioAlimentacao();
+
+    void  getEmpTotal(Empregado e, int mes, int ano);
 }

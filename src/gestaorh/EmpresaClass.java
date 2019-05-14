@@ -15,28 +15,40 @@ import java.util.ArrayList;
 public class EmpresaClass implements Empresa {
 
     private ArrayList<Empregado> empregado;
-    private double salarioPorDia;
+    private static double salarioPorDia = 10.5;
+    private static double bonusPorAntiguidade = 0.05;
+    private static double subsidioAlimentacao = 4.79;
+    private static double valorKm = 0.4;
 
-    public EmpresaClass(double salarioPorDia) {
+    public EmpresaClass() {
         empregado = new ArrayList<>();
-        this.salarioPorDia = salarioPorDia;
     }
 
+    public double getSubsidioAlimentacao() {
+        return subsidioAlimentacao; 
+    }
+    
     public double getSalarioPorDia() {
         return salarioPorDia;
     }
+    
 
     public double getTotalSalariosPagar() {
         double salario = 0.0;
         for (Empregado e : empregado) {
-            salario += (e.getDiasTrabalhoTotal() * salarioPorDia) + (e.getDiasTrabalhoTotal() * e.getSubsidioAlimentacao());
-        }   //falta bonus por antiguidade
+            salario += (e.getDiasTrabalhoTotal() * getSalarioPorDia()) + (e.getDiasTrabalhoTotal() * getSubsidioAlimentacao()) + (e.getAnosTrabalho() * bonusPorAntiguidade);
+        }
         return salario;
     }
 
-    public double getSalario(Empregado e, int mes, int ano) {
-        return (e.getDiasTrabalho(mes, ano) * salarioPorDia) + (e.getDiasTrabalho(mes, ano) * e.getSubsidioAlimentacao());
+    public double getSalarioBase(Empregado e, int mes, int ano) {
+        return (e.getDiasTrabalho(mes, ano) * salarioPorDia) + (e.getDiasTrabalho(mes, ano) * getSubsidioAlimentacao())+ (e.getAnosTrabalho() * bonusPorAntiguidade) ;
     }
+    
+       public void getEmpTotal(Empregado e, int mes, int ano){
+           //4 instance of's e 4 return's com calculos diferentes
+    }
+
 
     public String getTotalEmpregados() {
         String str = "";
@@ -48,39 +60,27 @@ public class EmpresaClass implements Empresa {
     }
 
     public String getTotalEmpregadoFiltrados() {
-        String str = "Empregados da Categoria Normal : ";
-
+        String normal = "\nEmpregados da Categoria Normal : \n";
+        String comercial = "\nEmpregados da Categoria Comercial : \n";
+        String gestor ="\nEmpregados da Categoria Gestor : \n";
+        String motorista = "\nEmpregados da Categoria Motorista : \n";
+        //4 strings...
         for (Empregado e : empregado) {
             if (e instanceof Normal) {
-                str += printEmpregado(e);
+                normal += printEmpregado(e);
+            }
+              if (e instanceof Comercial) {
+                comercial += printEmpregado(e);
+            }
+               if (e instanceof Gestor) {
+                comercial += printEmpregado(e);
+            }
+               if (e instanceof Motorista) {
+                comercial += printEmpregado(e);
             }
         }
 
-        str += "\nEmpregados da Categoria Comercial : ";
-
-        for (Empregado e : empregado) {
-            if (e instanceof Comercial) {
-                str += printEmpregado(e);
-            }
-        }
-
-        str += "\nEmpregados da Categoria Gestor : ";
-
-        for (Empregado e : empregado) {
-            if (e instanceof Gestor) {
-                str += printEmpregado(e);
-            }
-        }
-
-        str += "\nEmpregados da Categoria Motorista : ";
-
-        for (Empregado e : empregado) {
-            if (e instanceof Motorista) {
-                str += printEmpregado(e);
-            }
-        }
-
-        return str;
+        return normal+comercial+gestor+motorista;
     }
 
     public boolean empregadoIsExists(int codigo) {
@@ -159,6 +159,7 @@ public class EmpresaClass implements Empresa {
         Empregado e = new GestorClass(nome, codigo, day, month, year);
         empregado.add(e);
     }
+ 
 
     public String printEmpregado(Empregado empregado) {
 
@@ -166,7 +167,7 @@ public class EmpresaClass implements Empresa {
         LocalDate mesAnterior = today.minusMonths(1);
 
         String str;
-        str = "\nFicha do Empregado:\n Categoria: " + getCategoria(empregado) + "\n Código: " + empregado.getCodigo() + "\n Nome: " + empregado.getNome() + "\n Data de Entrada: " + empregado.getDataEntradaEmpresa() + "\n Salário (Ultimo mês): " + getSalario(empregado, mesAnterior.getMonthValue(), mesAnterior.getYear());
+        str = "\nFicha do Empregado:\n Categoria: " + getCategoria(empregado) + "\n Código: " + empregado.getCodigo() + "\n Nome: " + empregado.getNome() + "\n Data de Entrada: " + empregado.getDataEntradaEmpresa() + "\n Salário (Ultimo mês): " + getSalarioBase(empregado, mesAnterior.getMonthValue(), mesAnterior.getYear());
         return str;
     }
 

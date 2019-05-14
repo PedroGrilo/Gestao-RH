@@ -9,7 +9,7 @@ package gestaorh;
  *
  * @author Pedro Grilo
  */
-public class GestorClass extends EmpregadoAbsClass implements Gestor {
+public class GestorClass extends EmpregadoAbsClass implements Gestor  {
 
     private double premio;
 
@@ -25,5 +25,8 @@ public class GestorClass extends EmpregadoAbsClass implements Gestor {
     public void setPremio(double premio) {
         this.premio = premio;
     }
-
+     @Override
+    public double getSalario(){
+        return 12;
+    }
 }
