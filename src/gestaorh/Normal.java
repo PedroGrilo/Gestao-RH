@@ -5,12 +5,11 @@ package gestaorh;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- 
-
 /**
  *
  * @author Pedro Grilo
  */
 public interface Normal extends Empregado {
 
+    void setBonus(double valor);
 }

@@ -19,29 +19,48 @@ public interface Empresa {
 
     void addEmpregadoNormal(String nome, int codigo, int day, int month, int year);
 
-    void checkCodigo(int codigo) throws GestaoException;
+    String calcularCustosAnuais();
+
+    String calcularCustosAnual(int ano);
+
+    String calcularSemestreAno(int ano);
+
+    String calcularSemestres();
+
+    String calcularTrimestreAno(int ano);
+
+    String calcularTrimestres();
+
+    boolean empregadoIsExists(Empregado emp);
+
+    boolean empregadoIsExists(int codigo);
 
     String getCategoria(Empregado e) throws GestaoException;
 
-    String getEmpregado(int codigo);
-
-    String printEmpregado(Empregado empregado);
+    String getEmpregado(int codigo) throws GestaoException;
 
     int getNumeroEmpregados(String categoria);
 
     double getSalarioBase(Empregado e, int mes, int ano);
 
+    double getSalarioEmp(Empregado e, int mes, int ano);
+
     double getSalarioPorDia();
-
-    boolean empregadoIsExists(int codigo);
-
-    String getTotalEmpregados();
-
-    String getTotalEmpregadoFiltrados();
-
-    double getTotalSalariosPagar();
 
     double getSubsidioAlimentacao();
 
-    void  getEmpTotal(Empregado e, int mes, int ano);
+    String getTotalEmpregadoFiltrados();
+
+    String getTotalEmpregados();
+
+    double getTotalSalariosPagar();
+
+    boolean picarDiaTrabalho(int codigo, int ano, int mes, int dia);
+
+    String printEmpregado(Empregado empregado);
+
+    boolean adicionarBonus(int codigo, double valor);
+
+    boolean checkCategoriaCodigo(int codigo, String categoria);
+
 }

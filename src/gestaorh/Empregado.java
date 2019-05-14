@@ -26,9 +26,11 @@ public interface Empregado {
     Date getDataEntradaEmpresa();
 
     int getDiasTrabalhoTotal();
-    
+
     int getAnosTrabalho();
-    
-    double getSalario();
+
+    double getBonus();
+
+    void setBonus(double valor);
 
 }

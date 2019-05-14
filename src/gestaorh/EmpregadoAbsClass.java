@@ -20,7 +20,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     private Date dataEntradaEmpresa;
     private ArrayList<Date> datasQueTrabalhou;
 
-
     public EmpregadoAbsClass(String nome, int codigo, int day, int month, int year) {
         this.nome = nome;
         this.codigo = codigo;
@@ -28,7 +27,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
         datasQueTrabalhou = new ArrayList<>();
 
     }
-
 
     public int getDiasTrabalho(int mes, int ano) {
         int diasDeTrabalho = 0;
@@ -40,16 +38,16 @@ public abstract class EmpregadoAbsClass implements Empregado {
         return diasDeTrabalho;
     }
 
-    public int getAnosTrabalho(){
-      return dataEntradaEmpresa.getYearsTilToday();
-    }
-    
-    public int getDiasTrabalhoTotal() {
-        int diasDeTrabalho = 0;
-        for (Date dTC : datasQueTrabalhou) {
-            diasDeTrabalho++;
+    public int getAnosTrabalho() {
+        for (Date dataToCompare : datasQueTrabalhou) {
+
         }
-        return diasDeTrabalho;
+        return dataEntradaEmpresa.getYearsTilToday();
+    }
+
+    public int getDiasTrabalhoTotal() {
+        return datasQueTrabalhou.size();
+
     }
 
     public void setDiaTrabalho(int dia, int mes, int ano) throws GestaoException {
@@ -103,7 +101,9 @@ public abstract class EmpregadoAbsClass implements Empregado {
     public Date getDataEntradaEmpresa() {
         return dataEntradaEmpresa;
     }
-    
-   public abstract double getSalario();
+
+    public abstract double getBonus();
+
+    public abstract void setBonus(double valor);
 
 }

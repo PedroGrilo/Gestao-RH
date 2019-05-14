@@ -53,25 +53,9 @@ public class main {
 
     }
 
-    private static void menuPrincipal() {
-        System.out.println("\n\n|========== Menu Principal ==========|");
-        System.out.println("1. Inserir uma nova ficha de empregado; \n" //done
-                + "2. Verificar se existe algum empregado com um código dado como parâmetro; \n" // perguntar
-                + "3. Obter a ficha de empregado, dado um código como parâmetro, se existir; \n" //done
-                + "4. Dada uma lista de empregados contratados, inseri‐la no registo atual; \n" // perguntar / ficheiros
-                + "5. Determinar o número atual de empregados de uma dada categoria; \n"
-                + "6. Devolver o conjunto atual de fichas de empregados; \n"
-                + "7. Devolver o conjunto atual de fichas de empregados, filtrados por categoria; \n"
-                + "8. Calcular, a qualquer momento, o total de salários a pagar; \n"
-                + "9. Calcular e apresentar os custos trimestrais, semestrais e anuais com salários, devendo ter em conta os subsídios de natal e de férias; \n"
-                + "10. Guardar a lista atual de empregados num ficheiro de texto; \n"
-                + "0. Sair");
-    }
-
     private static void nrEmpregadosPorCategoria(UserInput ui, Empresa empresa) {
         String categoria = ui.lerFrase("Introduza uma categoria");
-        System.out.println("Numero de Empregados na Categoria ->" + categoria);
-        empresa.getNumeroEmpregados(categoria);
+        System.out.println("Numero de Empregados na Categoria -> " + categoria + " : " + empresa.getNumeroEmpregados(categoria));
     }
 
     private static void obterEmpregadoByCodigo(UserInput ui, Empresa empresa) {
@@ -80,16 +64,10 @@ public class main {
 
     }
 
-    private static int escolherOpcao(UserInput ui, Empresa empresa) {
-        int lerOpcao = ui.lerInteiro("Escolha uma opção");
-        escolherMenu(empresa, ui, lerOpcao);
-        return lerOpcao;
-    }
-
     private static void checkEmpregado(UserInput ui, Empresa empresa) {
         int codigo = ui.lerInteiro("Introduza um código");
         if (empresa.empregadoIsExists(codigo)) {
-            System.out.println("Existe um empregado com o código :" + codigo);
+            System.out.println("Existe um empregado com o código : " + codigo);
         } else {
             System.out.println("Não existe nenhum empregado com o código dado como parâmetro.");
         }
@@ -104,10 +82,115 @@ public class main {
     }
 
     private static void calcularSalariosTotais(Empresa empresa) {
-        System.out.println(empresa.getTotalSalariosPagar());
+        System.out.println("Total de salários a pagar: ");
+        System.out.println(empresa.getTotalSalariosPagar() + "€");
     }
 
-    private static void escolherMenu(Empresa empresa, UserInput ui, int opcao) {
+    private static void picarDia(UserInput ui, Empresa empresa) {
+        System.out.println("Introduzir dia Trabalhado: ");
+        int codigo = ui.lerInteiro(" Introduza o codigo do empregado");
+        int dia = ui.lerInteiro(" Introduza o dia");
+        int mes = ui.lerInteiro(" Introduza o mes");
+        int ano = ui.lerInteiro(" Introduza o ano");
+
+        if (empresa.picarDiaTrabalho(codigo, ano, mes, dia)) {
+            System.out.println("Dia adicionado com sucesso!");
+        }
+    }
+
+    private static void apresentarCustos(Empresa empresa) {
+        System.out.println("\n Custos Trimestrais, semestrais e anuais");
+        System.out.println("\n TRIMESTRES:");
+        System.out.println(empresa.calcularTrimestres());
+        System.out.println("\n SEMESTRES:");
+        System.out.println(empresa.calcularSemestres());
+        System.out.println("\n ANUAL:");
+        System.out.println(empresa.calcularCustosAnuais());
+    }
+
+    private static void adicionarVendasComercial(UserInput ui, Empresa empresa) {
+        int codigo = ui.lerInteiro(" Introduza o codigo do empregado");
+        double valor = ui.lerDouble("Introduza um valor para a venda");
+
+        empresa.checkCategoriaCodigo(codigo, "Comercial");
+
+        if (empresa.adicionarBonus(codigo, valor)) {
+            System.out.println("Venda adicionada com sucesso!");
+        };
+    }
+
+    private static void adicionarKmPercorricos(UserInput ui, Empresa empresa) {
+        int codigo = ui.lerInteiro(" Introduza o codigo do empregado");
+        double valor = ui.lerDouble("Introduza os kilometros percorridos");
+
+        empresa.checkCategoriaCodigo(codigo, "Motorista");
+
+        if (empresa.adicionarBonus(codigo, valor)) {
+            System.out.println("Kilometros percorridos adicionada com sucesso!");
+        };
+    }
+
+    private static void menuPrincipal() {
+        System.out.println("\n\n|========== Menu Principal ==========|\n"
+                + "1. Menu Empregado\n"
+                + "2. Menu Gestão\n"
+                + "0. Sair");
+    }
+
+    private static void escolherMenuPrincipal(Empresa empresa, UserInput ui, int opcao) {
+        switch (opcao) {
+            case 1:
+                menuEmpregado();
+                escolherMenuEmpregado(empresa, ui);
+                break;
+            case 2:
+                menuGestao();
+                escolherMenu(empresa, ui);
+                break;
+        }
+    }
+
+    private static void menuEmpregado() {
+        System.out.println("\n\n|========== Menu Empregado ==========|\n"
+                + "1. Introduzir dia de trabalho;\n"
+                + "2. Adicionar vendas (Exclusivo para Comerciais);\n"
+                + "3. Adicionar kilometros percorridos (Exclusivo para Motoristas);\n"
+                + "0. Sair");
+    }
+
+    private static void escolherMenuEmpregado(Empresa empresa, UserInput ui) {
+        int opcao = ui.lerInteiro("Escolha uma opção");
+        switch (opcao) {
+            case 1:
+                picarDia(ui, empresa);
+                break;
+            case 2:
+                adicionarVendasComercial(ui, empresa);
+                break;
+            case 3:
+                adicionarKmPercorricos(ui, empresa);
+                break;
+        }
+    }
+
+    private static void menuGestao() {
+        System.out.println("\n\n|========== Menu Gestão ==========|\n"
+                + "1. Inserir um novo empregado; \n"
+                + "2. Verificar se existe algum empregado com um código dado como parâmetro; \n"
+                + "3. Obter a ficha de empregado, dado um código; \n"
+                + "4. Inserir no ficheiro de texto empregados; \n"
+                + "5. Obter o número atual de empregados de uma dada categoria; \n"
+                + "6. Obter o conjunto de fichas de empregados; \n"
+                + "7. Obter o conjunto de fichas de empregados, filtrados por categoria; \n"
+                + "8. Calcular o total de salários a pagar; \n"
+                + "9. Calcular os custos trimestrais, semestrais e anuais com salários\n"
+                + "10. Guardar a lista atual de empregados no ficheiro de texto; \n"
+                + "0. Sair");
+    }
+
+    private static void escolherMenu(Empresa empresa, UserInput ui) {
+
+        int opcao = ui.lerInteiro("Escolha uma opção");
 
         switch (opcao) {
             case 1:
@@ -135,13 +218,19 @@ public class main {
                 calcularSalariosTotais(empresa);
                 break;
             case 9:
-                //to do demo!!
+                apresentarCustos(empresa);
                 break;
             case 10:
-            //ficheiros to do!
-
+                //ficheiros to do!
+                break;
         }
 
+    }
+
+    private static int escolherOpcao(UserInput ui, Empresa empresa) {
+        int lerOpcao = ui.lerInteiro("Escolha uma opção");
+        escolherMenuPrincipal(empresa, ui, lerOpcao);
+        return lerOpcao;
     }
 
     public static void main(String[] args) {

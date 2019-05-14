@@ -11,7 +11,7 @@ package gestaorh;
  */
 public class MotoristaClass extends EmpregadoAbsClass implements Motorista {
 
-     private double kmPercorridos;
+    private double kmPercorridos;
 
     public MotoristaClass(String nome, int codigo, int day, int month, int year) {
         super(nome, codigo, day, month, year);
@@ -25,9 +25,14 @@ public class MotoristaClass extends EmpregadoAbsClass implements Motorista {
     public void setKmPercorridos(double kmPercorridos) {
         this.kmPercorridos = kmPercorridos;
     }
-    
-     @Override
-    public double getSalario(){
+
+    @Override
+    public double getBonus() {
         return kmPercorridos;
+    }
+
+    @Override
+    public void setBonus(double valor) {
+        kmPercorridos += valor;
     }
 }

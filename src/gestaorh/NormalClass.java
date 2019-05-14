@@ -9,13 +9,20 @@ package gestaorh;
  *
  * @author Pedro Grilo
  */
-public class NormalClass extends EmpregadoAbsClass  implements Normal{
+public class NormalClass extends EmpregadoAbsClass implements Normal {
 
     public NormalClass(String nome, int codigo, int day, int month, int year) {
         super(nome, codigo, day, month, year);
     }
- @Override
-    public double getSalario(){
-        return 123;
+
+    @Override
+    public double getBonus() {
+        throw new UnsupportedOperationException("Nao há bonus");
     }
+
+    @Override
+    public void setBonus(double valor) {
+        throw new UnsupportedOperationException("Nao há bonus");
+    }
+
 }

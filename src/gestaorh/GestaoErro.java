@@ -10,7 +10,7 @@ package gestaorh;
  * @author Pedro Grilo
  */
 public enum GestaoErro {
-    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE, CODIGO_EXISTE, ERRO_CATEGORIA, EMPREGADO_NOTFOUND;
+    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE, CODIGO_EXISTE, ERRO_CATEGORIA, CATEGORIA_NOTFOUND, EMPREGADO_NOTFOUND, CATEGORIA_INVALIDA;
 
     @Override
     public String toString() {
@@ -29,7 +29,12 @@ public enum GestaoErro {
             case ERRO_CATEGORIA:
                 return "ERRO: O empregado não pertence a nenhuma das categorias.";
             case EMPREGADO_NOTFOUND:
-                return "Erro: Empregado não encontrado.";
+                return "ERRO: Empregado não encontrado.";
+            case CATEGORIA_NOTFOUND:
+                return "ERRO: Categoria não existe.";
+            case CATEGORIA_INVALIDA:
+                return "ERRO: O código não pertence a esta categoria";
+
         }
         return "";
     }

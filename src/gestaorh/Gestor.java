@@ -5,17 +5,11 @@ package gestaorh;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- 
-
 /**
  *
  * @author Pedro Grilo
  */
 public interface Gestor extends Empregado {
 
-    double getPremio();
-
-    void setPremio(double premio);
-    
-    double getSalario();
+    void setBonus(double valor);
 }

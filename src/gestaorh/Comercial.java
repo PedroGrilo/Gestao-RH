@@ -11,7 +11,7 @@ package gestaorh;
  */
 public interface Comercial extends Empregado {
 
-    void addVenda(String tipoVenda, String descricao, double preco, Date dataVenda) throws GestaoException;
-    double getSalario();
+    void addVenda(double preco)throws GestaoException;
+    double getBonus();
 
 }

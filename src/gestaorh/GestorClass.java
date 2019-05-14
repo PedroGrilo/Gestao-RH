@@ -9,24 +9,19 @@ package gestaorh;
  *
  * @author Pedro Grilo
  */
-public class GestorClass extends EmpregadoAbsClass implements Gestor  {
-
-    private double premio;
+public class GestorClass extends EmpregadoAbsClass implements Gestor {
 
     public GestorClass(String nome, int codigo, int day, int month, int year) {
         super(nome, codigo, day, month, year);
-        premio = 0.15;
     }
 
-    public double getPremio() {
-        return premio;
+    @Override
+    public double getBonus() {
+        return 0.15;
     }
 
-    public void setPremio(double premio) {
-        this.premio = premio;
+    @Override
+    public void setBonus(double valor) {
     }
-     @Override
-    public double getSalario(){
-        return 12;
-    }
+
 }
