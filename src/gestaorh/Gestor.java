@@ -11,5 +11,19 @@ package gestaorh;
  */
 public interface Gestor extends Empregado {
 
-    void setBonus(double valor);
+    /**
+     *
+     * @param mes
+     * @param ano
+     * @return
+     */
+    double getBonus(int mes, int ano);
+
+    /**
+     *
+     * @param valor
+     * @param mes
+     * @param ano
+     */
+    void setBonus(double valor, int mes, int ano);
 }

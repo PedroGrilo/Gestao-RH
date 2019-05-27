@@ -17,17 +17,65 @@ public class EmpresaClass implements Empresa {
 
     private ArrayList<Empregado> empregado;
     private static double salarioPorDia = 10.0;
-    private static double bonusPorAntiguidade = 1.05;//5% de bonus do salario por ano
+    private static double bonusPorAntiguidade = 0.05;//5% de bonus do salario por ano
     private static double subsidioAlimentacao = 4.79; //4.79€ por dia de trabalho
     private static double valorKm = 0.50; //50centimos por kilometro
     private static double percentagemVendas = 0.20;// percentagem
     private static double premioGestor = 1.15;  //15% premio gestor
     private static DecimalFormat decimal2casas = new DecimalFormat("#.##");
 
+    /**
+     *
+     */
     public EmpresaClass() {
         empregado = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Empregado> getEmpregado() {
+        return empregado;
+    }
+
+    /**
+     *
+     * @param empregados
+     * @throws GestaoException
+     */
+    public void inserirEmpregados(Empregado[] empregados) throws GestaoException {
+
+        int counter = 0;
+
+        for (Empregado eToAdd : empregados) {
+            if (!empregadoIsExists(eToAdd.getCodigo())) {
+                empregado.add(eToAdd);
+            } else {
+                counter++;
+            }
+        }
+
+        if (counter > 0) {
+            throw new GestaoException(GestaoErro.ERRO_ADICIONAR_EMP);
+        }
+    }
+
+    /**
+     *
+     * @param empregado
+     */
+    public void setEmpregado(ArrayList<Empregado> empregado) {
+        this.empregado = empregado;
+    }
+
+    /**
+     *
+     * @param codigo
+     * @param categoria
+     * @return
+     * @throws GestaoException
+     */
     public boolean checkCategoriaCodigo(int codigo, String categoria) throws GestaoException {
         for (Empregado e : empregado) {
             if (e.getCodigo() == codigo && getCategoria(e).toLowerCase().equals(categoria.toLowerCase())) {
@@ -37,11 +85,22 @@ public class EmpresaClass implements Empresa {
         throw new GestaoException(GestaoErro.CATEGORIA_INVALIDA);
     }
 
-    public boolean adicionarBonus(int codigo, double valor) throws GestaoException {
+    /**
+     *
+     * @param codigo
+     * @param valor
+     * @param mes
+     * @param ano
+     * @return
+     * @throws GestaoException
+     */
+    @Override
+    public boolean adicionarBonus(int codigo, double valor, int mes, int ano) throws GestaoException {
+
         if (empregadoIsExists(codigo)) {
             for (Empregado e : empregado) {
                 if (e.getCodigo() == codigo) {
-                    e.setBonus(valor);
+                    e.setBonus(valor, mes, ano);
                     return true;
                 }
             }
@@ -49,59 +108,6 @@ public class EmpresaClass implements Empresa {
             throw new GestaoException(GestaoErro.EMPREGADO_NOTFOUND);
         }
         return false;
-    }
-
-    private double calcularPrimeiroTrimestre(int ano) {
-        double custos = 0.0;
-        for (Empregado e : empregado) {
-            for (int i = 1; i <= 3; i++) {
-                custos += getSalarioEmp(e, i, ano);
-            }
-        }
-        return custos;
-    }
-
-    private double calcularSegundoTrimestre(int ano) {
-        double custos = 0.0;
-        for (Empregado e : empregado) {
-            for (int i = 4; i <= 6; i++) {
-                custos += getSalarioEmp(e, i, ano);
-            }
-        }
-        return custos;
-    }
-
-    private double calcularTerceiroTrimestre(int ano) {
-        double custos = 0.0;
-        for (Empregado e : empregado) {
-            for (int i = 7; i <= 9; i++) {
-                custos += getSalarioEmp(e, i, ano);
-            }
-        }
-        return custos;
-    }
-
-    private double calcularQuartoTrimestre(int ano) {
-        double custos = 0.0;
-        for (Empregado e : empregado) {
-            for (int i = 10; i <= 12; i++) {
-                custos += getSalarioEmp(e, i, ano);
-            }
-        }
-        return custos;
-    }
-
-    public String calcularTrimestreAno(int ano) {
-        double prTrim = calcularPrimeiroTrimestre(ano);
-        double segTrim = calcularSegundoTrimestre(ano);
-        double terTrim = calcularTerceiroTrimestre(ano);
-        double quarTrim = calcularQuartoTrimestre(ano);
-
-        return "\n\n  Ano : " + ano
-                + "\n\n   Primeiro Trimestre: " + decimal2casas.format(prTrim) + "€"
-                + "\n   Segundo Trimestre: " + decimal2casas.format(segTrim) + "€"
-                + "\n   Terceiro Trimestre: " + decimal2casas.format(terTrim) + "€"
-                + "\n   Quarto Trimestre: " + decimal2casas.format(quarTrim) + "€";
     }
 
     private int anoMenorEntradaEmpresa() {
@@ -115,55 +121,92 @@ public class EmpresaClass implements Empresa {
         return anoMenor;
     }
 
-    public String calcularTrimestres() {
-
-        Date dataAtual = new DateClass();
-        int anoMenor = anoMenorEntradaEmpresa();
-
-        String str = "";
-        for (int i = anoMenor; i <= dataAtual.getYear(); i++) {
-            str += calcularTrimestreAno(i);
+    private double calculoXTrimestre(int ano, int posInicial, int posFinal) {
+        double custos = 0.0;
+        for (Empregado e : empregado) {
+            for (int i = posInicial; i < posFinal; i++) {
+                custos += salarioPorCategoria(e, i + 1, ano);
+            }
         }
-        return str;
+        return custos;
     }
 
+    /**
+     *
+     * @param ano
+     * @return
+     */
+    public String calcularTrimestreAno(int ano) {
+        double prTrim = calculoXTrimestre(ano, 0, 3); //calcular 1º Trimestre
+        double segTrim = calculoXTrimestre(ano, 3, 6); //calcular 2º Trimestre
+        double terTrim = calculoXTrimestre(ano, 6, 9); //calcular 3º Trimestre
+        double quarTrim = calculoXTrimestre(ano, 9, 12); //calcular 4º Trimestre
+
+        return "\n\n  Ano : " + ano
+                + "\n\n   Primeiro Trimestre: " + decimal2casas.format(prTrim) + "€"
+                + "\n   Segundo Trimestre: " + decimal2casas.format(segTrim) + "€"
+                + "\n   Terceiro Trimestre: " + decimal2casas.format(terTrim) + "€"
+                + "\n   Quarto Trimestre: " + decimal2casas.format(quarTrim) + "€";
+    }
+
+    /**
+     *
+     * @param ano
+     * @return
+     */
     public String calcularSemestreAno(int ano) {
-        double prSem = calcularPrimeiroTrimestre(ano) + calcularSegundoTrimestre(ano);
-        double segSem = calcularTerceiroTrimestre(ano) + calcularQuartoTrimestre(ano);
+        double prSem = calculoXTrimestre(ano, 0, 3) + calculoXTrimestre(ano, 3, 6);
+        double segSem = calculoXTrimestre(ano, 6, 9) + calculoXTrimestre(ano, 9, 12);
 
         return "\n\n  Ano : " + ano
                 + "\n\n    Primeiro Semestre: " + decimal2casas.format(prSem) + "€"
                 + "\n    Segundo Semestre: " + decimal2casas.format(segSem) + "€";
     }
 
-    public String calcularSemestres() {
-
-        Date dataAtual = new DateClass();
-        int anoMenor = anoMenorEntradaEmpresa();
-        String str = "";
-        for (int i = anoMenor; i <= dataAtual.getYear(); i++) {
-            str += calcularSemestreAno(i);
-        }
-        return str;
-    }
-
+    /**
+     *
+     * @param ano
+     * @return
+     */
     public String calcularCustosAnual(int ano) {
-        double custos = calcularPrimeiroTrimestre(ano) + calcularSegundoTrimestre(ano) + calcularTerceiroTrimestre(ano) + calcularQuartoTrimestre(ano);
+        double custos = calculoXTrimestre(ano, 0, 3) + calculoXTrimestre(ano, 3, 6) + calculoXTrimestre(ano, 6, 9) + calculoXTrimestre(ano, 9, 12);
 
         return "\n\n  Total no ano(" + ano + ") :" + decimal2casas.format(custos) + "€";
     }
 
-    public String calcularCustosAnuais() {
-
+    /**
+     *
+     * @param periodo
+     * @return
+     */
+    public String calcularCustos(Periodos periodo) {
         Date dataAtual = new DateClass();
         int anoMenor = anoMenorEntradaEmpresa();
+
         String str = "";
         for (int i = anoMenor; i <= dataAtual.getYear(); i++) {
-            str += calcularCustosAnual(i);
+            if (periodo.equals(Periodos.TRIMESTRES)) {
+                str += calcularTrimestreAno(i);
+            }
+            if (periodo.equals(Periodos.SEMESTRES)) {
+                str += calcularSemestreAno(i);
+            }
+            if (periodo.equals(Periodos.ANUAIS)) {
+                str += calcularCustosAnual(i);
+            }
         }
         return str;
     }
 
+    /**
+     *
+     * @param codigo
+     * @param ano
+     * @param mes
+     * @param dia
+     * @return
+     * @throws GestaoException
+     */
     public boolean picarDiaTrabalho(int codigo, int ano, int mes, int dia) throws GestaoException {
         for (Empregado e : empregado) {
             if (e.getCodigo() == codigo) {
@@ -175,48 +218,15 @@ public class EmpresaClass implements Empresa {
 
     }
 
-    public double getSubsidioAlimentacao() {
-        return subsidioAlimentacao;
-    }
-
-    public double getSalarioPorDia() {
-        return salarioPorDia;
-    }
-
+    /**
+     *
+     * @param e
+     * @param mes
+     * @param ano
+     * @return
+     */
     public double getSalarioBase(Empregado e, int mes, int ano) {
-        return (e.getDiasTrabalho(mes, ano) * salarioPorDia) + (e.getDiasTrabalho(mes, ano) * getSubsidioAlimentacao()) + (e.getAnosTrabalho() * bonusPorAntiguidade);
-    }
-
-    public double getTotalSalariosPagar() {
-        double salario = 0.0;
-
-        for (Empregado e : empregado) {
-            salario += salarioTotalEmp(e);
-        }
-        return salario;
-    }
-
-    private double salarioTotalEmp(Empregado e) {
-
-        double salarioEmp = (e.getDiasTrabalhoTotal() * getSalarioPorDia()) + (e.getDiasTrabalhoTotal() * getSubsidioAlimentacao()) + (e.getAnosTrabalho() * bonusPorAntiguidade);
-
-        if (e instanceof Gestor) {
-            return salarioEmp * premioGestor; // salario base + (15% do salario base)
-        }
-        if (e instanceof Motorista) {
-            return salarioEmp + (e.getBonus() * valorKm); // salario base + (kmPercorridos * valor por Kilometro
-        }
-        if (e instanceof Comercial) {
-            return salarioEmp + (e.getBonus() * percentagemVendas); //sario base + (valor das Vendas * percentagem Vendas)
-        }
-        if (e instanceof Normal) {
-            return salarioEmp;
-        }
-        throw new GestaoException(GestaoErro.EMPREGADO_NOTFOUND);
-    }
-
-    public double getSalarioEmp(Empregado e, int mes, int ano) {
-        return salarioPorCategoria(e, mes, ano);
+        return ((e.getDiasTrabalho(mes, ano) * salarioPorDia) + (e.getDiasTrabalho(mes, ano) * getSubsidioAlimentacao())) * ((e.getAnosTrabalho() * bonusPorAntiguidade) + 1);
     }
 
     private double salarioPorCategoria(Empregado e, int mes, int ano) throws GestaoException {
@@ -228,17 +238,36 @@ public class EmpresaClass implements Empresa {
             return getSalarioBase(e, mes, ano) * premioGestor; // salario base + (15% do salario base)
         }
         if (e instanceof Motorista) {
-            return getSalarioBase(e, mes, ano) + (e.getBonus() * valorKm); // salario base + (kmPercorridos * valor por Kilometro
+            return getSalarioBase(e, mes, ano) + (e.getBonus(mes, ano) * valorKm); // salario base + (kmPercorridos * valor por Kilometro
         }
         if (e instanceof Comercial) {
-            return getSalarioBase(e, mes, ano) + (e.getBonus() * percentagemVendas); //sario base + (valor das Vendas * percentagem Vendas)
+            return getSalarioBase(e, mes, ano) + (e.getBonus(mes, ano) * percentagemVendas); //salario base + (valor das Vendas * percentagem Vendas)
         }
         if (e instanceof Normal) {
             return getSalarioBase(e, mes, ano);
         }
+
         throw new GestaoException(GestaoErro.DATA_INVALIDA);
     }
 
+    /**
+     *
+     * @return
+     */
+    public String getTotalSalariosPagar() {
+        double salario = 0.0;
+        Date dataAtual = new DateClass();
+        for (Empregado e : empregado) {
+            salario += salarioPorCategoria(e, dataAtual.getMonth(), dataAtual.getYear());
+        }
+
+        return decimal2casas.format(salario);
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getTotalEmpregados() {
         String str = "";
         for (Empregado e : empregado) {
@@ -247,6 +276,10 @@ public class EmpresaClass implements Empresa {
         return str;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getTotalEmpregadoFiltrados() {
         String normal = "\nEmpregados da Categoria Normal : \n";
         String comercial = "\nEmpregados da Categoria Comercial : \n";
@@ -271,25 +304,43 @@ public class EmpresaClass implements Empresa {
         return normal + comercial + gestor + motorista;
     }
 
-    public boolean empregadoIsExists(int codigo) {
+    /**
+     *
+     * @param codigo
+     * @return
+     * @throws GestaoException
+     */
+    public boolean empregadoIsExists(int codigo) throws GestaoException {
         for (Empregado e : empregado) {
             if (e.getCodigo() == codigo) {
                 return true;
             }
         }
-        return false;
+        throw new GestaoException(GestaoErro.EMPREGADO_NOTFOUND);
     }
 
-    public boolean empregadoIsExists(Empregado emp) {
+    /**
+     *
+     * @param emp
+     * @return
+     * @throws GestaoException
+     */
+    public boolean empregadoIsExists(Empregado emp) throws GestaoException {
         for (Empregado e : empregado) {
             if (e.getCodigo() == emp.getCodigo()) {
                 return true;
             }
         }
-        return false;
+        throw new GestaoException(GestaoErro.EMPREGADO_NOTFOUND);
+
     }
 
-    private void checkCodigo(int codigo) throws GestaoException {
+    /**
+     *
+     * @param codigo
+     * @throws GestaoException
+     */
+    public void checkCodigo(int codigo) throws GestaoException {
         for (Empregado e : empregado) {
             if (e.getCodigo() == codigo) {
                 throw new GestaoException(GestaoErro.CODIGO_EXISTE);
@@ -298,12 +349,16 @@ public class EmpresaClass implements Empresa {
     }
 
     private void checkCategoria(String categoria) throws GestaoException {
-        System.out.println(categoria + " - testes");
-        if (!categoria.equals("normal") && !categoria.equals("comercial") && !categoria.equals("motorista") && !categoria.equals("gestor")) {
+        if (!categoria.equals(Categorias.NORMAL.toString()) && !categoria.equals(Categorias.COMERCIAL.toString()) && !categoria.equals(Categorias.MOTORISTA.toString()) && !categoria.equals(Categorias.GESTOR.toString())) {
             throw new GestaoException(GestaoErro.CATEGORIA_NOTFOUND);
         }
     }
 
+    /**
+     *
+     * @param categoria
+     * @return
+     */
     public int getNumeroEmpregados(String categoria) {
         int counter = 0;
         checkCategoria(categoria.toLowerCase());
@@ -315,6 +370,12 @@ public class EmpresaClass implements Empresa {
         return counter;
     }
 
+    /**
+     *
+     * @param e
+     * @return
+     * @throws GestaoException
+     */
     public String getCategoria(Empregado e) throws GestaoException {
         if (e instanceof Normal) {
             return "Normal";
@@ -329,41 +390,128 @@ public class EmpresaClass implements Empresa {
         }
     }
 
-    public String getEmpregado(int codigo) throws GestaoException {
+    /**
+     *
+     * @param codigo
+     * @return
+     * @throws GestaoException
+     */
+    public String getEmpregadoString(int codigo) throws GestaoException {
         for (Empregado e : empregado) {
             if (e.getCodigo() == codigo) {
                 return printEmpregado(e);
             }
         }
         throw new GestaoException(GestaoErro.EMPREGADO_NOTFOUND);
-
     }
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
+    public Empregado getEmpregado(int codigo) {
+        for (Empregado e : empregado) {
+            if (e.getCodigo() == codigo) {
+                return e;
+            }
+        }
+        throw new GestaoException(GestaoErro.EMPREGADO_NOTFOUND);
+    }
+
+    /**
+     *
+     * @param nome
+     * @param codigo
+     * @param day
+     * @param month
+     * @param year
+     */
     public void addEmpregadoNormal(String nome, int codigo, int day, int month, int year) {
-        checkCodigo(codigo);
         Empregado e = new NormalClass(nome, codigo, day, month, year);
         empregado.add(e);
-
     }
 
+    /**
+     *
+     * @param nome
+     * @param codigo
+     * @param day
+     * @param month
+     * @param year
+     */
     public void addEmpregadoComercial(String nome, int codigo, int day, int month, int year) {
-        checkCodigo(codigo);
         Empregado e = new ComercialClass(nome, codigo, day, month, year);
         empregado.add(e);
     }
 
+    /**
+     *
+     * @param nome
+     * @param codigo
+     * @param day
+     * @param month
+     * @param year
+     */
     public void addEmpregadoMotorista(String nome, int codigo, int day, int month, int year) {
-        checkCodigo(codigo);
         Empregado e = new MotoristaClass(nome, codigo, day, month, year);
         empregado.add(e);
     }
 
+    /**
+     *
+     * @param nome
+     * @param codigo
+     * @param day
+     * @param month
+     * @param year
+     */
     public void addEmpregadoGestor(String nome, int codigo, int day, int month, int year) {
-        checkCodigo(codigo);
         Empregado e = new GestorClass(nome, codigo, day, month, year);
         empregado.add(e);
     }
 
+    /**
+     *
+     * @param data1
+     * @param data2
+     * @return
+     */
+    public boolean verifyDate(Date data1, Date data2) {
+        if (data1.getYear() < data2.getYear()) {
+            return false;
+        }
+        if (data1.getMonth() < data2.getMonth() && data1.getYear() <= data2.getYear()) {
+            return false;
+        }
+
+        if (data1.getDay() < data2.getDay() && data1.getMonth() <= data2.getMonth() && data1.getYear() <= data2.getYear()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getSubsidioAlimentacao() {
+        return subsidioAlimentacao;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double getSalarioPorDia() {
+        return salarioPorDia;
+    }
+
+    /**
+     *
+     * @param empregado
+     * @return
+     */
     public String printEmpregado(Empregado empregado) {
 
         LocalDate today = LocalDate.now();
@@ -373,8 +521,7 @@ public class EmpresaClass implements Empresa {
                 + "\n Código: " + empregado.getCodigo()
                 + "\n Nome: " + empregado.getNome()
                 + "\n Data de Entrada: " + empregado.getDataEntradaEmpresa()
-                + "\n Salário (Ultimo mês): " + decimal2casas.format(getSalarioBase(empregado, mesAnterior.getMonthValue(), mesAnterior.getYear())) + "€"
-                + "\n Salario Total: " + decimal2casas.format((salarioTotalEmp(empregado))) + "€"
+                + "\n Salário (Último mes): " + decimal2casas.format(salarioPorCategoria(empregado, mesAnterior.getMonthValue(), mesAnterior.getYear())) + "€"
                 + "\n\n|------------------------------------------------------|\n";
         return str;
     }

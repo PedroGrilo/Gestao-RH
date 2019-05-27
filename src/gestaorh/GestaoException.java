@@ -13,6 +13,10 @@ public class GestaoException extends RuntimeException {
 
     private GestaoErro codigoErro;
 
+    /**
+     *
+     * @param codigoErro
+     */
     public GestaoException(GestaoErro codigoErro) {
         super(codigoErro.toString());
         this.codigoErro = codigoErro;

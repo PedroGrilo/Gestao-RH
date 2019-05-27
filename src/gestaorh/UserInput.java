@@ -2,16 +2,28 @@ package gestaorh;
 
 import java.util.Scanner;
 
+/**
+ *
+ * @author creep
+ */
 public class UserInput {
 
     Scanner scan;
 
+    /**
+     *
+     */
     public UserInput() {
 
         scan = new Scanner(System.in);
 
     }
 
+    /**
+     *
+     * @param frase
+     * @return
+     */
     public int lerInteiro(String frase) {
         int inteiro;
 
@@ -25,6 +37,11 @@ public class UserInput {
         return inteiro;
     }
 
+    /**
+     *
+     * @param frase
+     * @return
+     */
     public double lerDouble(String frase) {
         double real;
 
@@ -39,14 +56,31 @@ public class UserInput {
         return real;
     }
 
+    /**
+     *
+     * @param frase
+     * @return
+     */
     public String lerFrase(String frase) {
         System.out.print(frase + " > ");
         return scan.next();
     }
 
+    /**
+     *
+     * @param frase
+     * @return
+     */
     public char lerChar(String frase) {
         System.out.print(frase + " > ");
         return scan.next().charAt(0);
+    }
+    
+    /**
+     *
+     */
+    public void closeScanner() {
+    	scan.close();
     }
 
 }

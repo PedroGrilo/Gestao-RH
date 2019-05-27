@@ -11,11 +11,19 @@ package gestaorh;
  */
 public interface Motorista extends Empregado {
 
-    double getKmPercorridos();
+    /**
+     *
+     * @param mes
+     * @param ano
+     * @return
+     */
+    double getBonus(int mes, int ano);
 
-    void setKmPercorridos(double kmPercorridos);
-
-    double getBonus();
-
-    void setBonus(double valor);
+    /**
+     *
+     * @param valor
+     * @param mes
+     * @param ano
+     */
+    void setBonus(double valor, int mes, int ano);
 }

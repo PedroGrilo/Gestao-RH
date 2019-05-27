@@ -18,16 +18,26 @@ public class DateClass implements Date {
     private int month;
     private int year;
 
+    /**
+     *
+     * @param day
+     * @param month
+     * @param year
+     */
     public DateClass(int day, int month, int year) {
         if (validateDate(day, month, year)) {
             this.day = day;
             this.month = month;
             this.year = year;
         } else {
+
             throw new GestaoException(GestaoErro.DATA_INVALIDA);
         }
     }
 
+    /**
+     *
+     */
     public DateClass() {
         this.day = LocalDate.now().getDayOfMonth();
         this.month = LocalDate.now().getMonthValue();
@@ -70,41 +80,69 @@ public class DateClass implements Date {
     }
 
     private boolean isLeapYear(int year) {
-        // O ano é bissexto se for divisível por quatro, exceto anos múltiplos 
+        // O ano é bissexto se for divisível por quatro, exceto anos múltiplos
         // de 100 que não são múltiplos de 400:
         return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     *
+     * @param day
+     */
     public void setDay(int day) {
         if (validateDate(day, this.month, this.year)) {
             this.day = day;
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     *
+     * @param month
+     */
     public void setMonth(int month) {
         if (validateDate(this.day, month, this.year)) {
             this.month = month;
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     *
+     * @param year
+     */
     public void setYear(int year) {
         if (validateDate(this.day, this.month, year)) {
             this.year = year;
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMonthsTilToday() {
         int monthsTilToday = getCurrentMonth() - month;
         if (day > getCurrentDay()) {
@@ -113,6 +151,10 @@ public class DateClass implements Date {
         return monthsTilToday;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getYearsTilToday() {  // era getAge
         return Period.between(LocalDate.of(year, month, day), LocalDate.of(getCurrentYear(), getCurrentMonth(), getCurrentDay())).getYears();
     }

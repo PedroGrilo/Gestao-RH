@@ -20,14 +20,35 @@ public abstract class EmpregadoAbsClass implements Empregado {
     private Date dataEntradaEmpresa;
     private ArrayList<Date> datasQueTrabalhou;
 
+    /**
+     *
+     * @param nome
+     * @param codigo
+     * @param day
+     * @param month
+     * @param year
+     */
     public EmpregadoAbsClass(String nome, int codigo, int day, int month, int year) {
         this.nome = nome;
         this.codigo = codigo;
         dataEntradaEmpresa = new DateClass(day, month, year);
         datasQueTrabalhou = new ArrayList<>();
-
     }
 
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Date> getDatasQueTrabalhou() {
+        return datasQueTrabalhou;
+    }
+
+    /**
+     *
+     * @param mes
+     * @param ano
+     * @return
+     */
     public int getDiasTrabalho(int mes, int ano) {
         int diasDeTrabalho = 0;
         for (Date dataToCompare : datasQueTrabalhou) {
@@ -38,22 +59,33 @@ public abstract class EmpregadoAbsClass implements Empregado {
         return diasDeTrabalho;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAnosTrabalho() {
-        for (Date dataToCompare : datasQueTrabalhou) {
-
-        }
         return dataEntradaEmpresa.getYearsTilToday();
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDiasTrabalhoTotal() {
         return datasQueTrabalhou.size();
 
     }
 
+    /**
+     *
+     * @param dia
+     * @param mes
+     * @param ano
+     * @throws GestaoException
+     */
     public void setDiaTrabalho(int dia, int mes, int ano) throws GestaoException {
 
         Date data = new DateClass(dia, mes, ano);
-        Date dataAtual = new DateClass();
 
         for (Date dataToCompare : datasQueTrabalhou) {
             if (dataToCompare.toString().equals(data.toString())) {
@@ -61,49 +93,63 @@ public abstract class EmpregadoAbsClass implements Empregado {
             }
         }
 
-        if ((!verifyDate(data, dataEntradaEmpresa)) || (!verifyDate(dataAtual, data))) {
-            throw new GestaoException(GestaoErro.DATA_INVALIDA);
-        }
-
         datasQueTrabalhou.add(data);
     }
 
-    public boolean verifyDate(Date data1, Date data2) {
-        if (data1.getYear() < data2.getYear()) {
-            return false;
-        }
-        if (data1.getMonth() < data2.getMonth() && data1.getYear() <= data2.getYear()) {
-            return false;
-        }
-
-        if (data1.getDay() < data2.getDay() && data1.getMonth() <= data2.getMonth() && data1.getYear() <= data2.getYear()) {
-            return false;
-        }
-        return true;
-    }
-
+    /**
+     *
+     * @return
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     *
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDataEntradaEmpresa() {
         return dataEntradaEmpresa;
     }
 
-    public abstract double getBonus();
+    /**
+     *
+     * @param mes
+     * @param ano
+     * @return
+     */
+    public abstract double getBonus(int mes, int ano);
 
-    public abstract void setBonus(double valor);
+    /**
+     *
+     * @param valor
+     * @param mes
+     * @param ano
+     */
+    public abstract void setBonus(double valor, int mes, int ano);
 
 }

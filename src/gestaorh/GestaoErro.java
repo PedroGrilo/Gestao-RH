@@ -10,31 +10,86 @@ package gestaorh;
  * @author Pedro Grilo
  */
 public enum GestaoErro {
-    DATA_EXISTENTE, DATA_INVALIDA, CAMPOS_VAZIOS, VENDA_JA_EXISTE, CODIGO_EXISTE, ERRO_CATEGORIA, CATEGORIA_NOTFOUND, EMPREGADO_NOTFOUND, CATEGORIA_INVALIDA;
+
+    /**
+     *
+     */
+    DATA_EXISTENTE,
+
+    /**
+     *
+     */
+    DATA_INVALIDA,
+
+    /**
+     *
+     */
+    CAMPOS_VAZIOS,
+
+    /**
+     *
+     */
+    VENDA_JA_EXISTE,
+
+    /**
+     *
+     */
+    CODIGO_EXISTE,
+
+    /**
+     *
+     */
+    ERRO_CATEGORIA,
+
+    /**
+     *
+     */
+    CATEGORIA_NOTFOUND,
+
+    /**
+     *
+     */
+    EMPREGADO_NOTFOUND,
+
+    /**
+     *
+     */
+    CATEGORIA_INVALIDA,
+
+    /**
+     *
+     */
+    DATA_INEXISTENTE,
+
+    /**
+     *
+     */
+    ERRO_ADICIONAR_EMP;
 
     @Override
     public String toString() {
 
         switch (this) {
             case DATA_EXISTENTE:
-                return "ERRO: A data já existe.";
+                return "\nERRO: A data já existe.";
             case DATA_INVALIDA:
-                return "ERRO: A data é inválida.";
+                return "\nERRO: A data é inválida.";
             case CAMPOS_VAZIOS:
-                return "ERRO: Exitem campos vazios.";
+                return "\nERRO: Exitem campos vazios.";
             case VENDA_JA_EXISTE:
-                return "ERRO: Não pode existir vendas duplicadas.";
+                return "\nERRO: Não pode existir vendas duplicadas.";
             case CODIGO_EXISTE:
-                return "ERRO: O código já existe.";
+                return "\nERRO: O código já existe.";
             case ERRO_CATEGORIA:
-                return "ERRO: O empregado não pertence a nenhuma das categorias.";
+                return "\nERRO: O empregado não pertence a nenhuma das categorias.";
             case EMPREGADO_NOTFOUND:
-                return "ERRO: Empregado não encontrado.";
+                return "\nERRO: Empregado não encontrado.";
             case CATEGORIA_NOTFOUND:
-                return "ERRO: Categoria não existe.";
+                return "\nERRO: Categoria não existe.";
             case CATEGORIA_INVALIDA:
-                return "ERRO: O código não pertence a esta categoria";
-
+                return "\nERRO: O empregado não pertence a esta categoria.";
+            case ERRO_ADICIONAR_EMP:
+                return "\nERRO: Não foi possivel adicionar todos os empregados, existe códigos repetidos.";
         }
         return "";
     }
