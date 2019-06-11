@@ -20,7 +20,6 @@ public class Main extends Application {
         MainPane root = new MainPane();
 
         Scene scene = new Scene(root);
-
         stage.setScene(scene);
         stage.show();
     }
