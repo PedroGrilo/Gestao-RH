@@ -5,6 +5,8 @@ package gestaorh;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+import gestaorh.exceptions.GestaoErro;
+import gestaorh.exceptions.GestaoException;
 import java.time.LocalDate;
 import java.time.Period;
 

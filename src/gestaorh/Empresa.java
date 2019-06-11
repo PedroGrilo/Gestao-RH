@@ -1,5 +1,6 @@
 package gestaorh;
 
+import gestaorh.exceptions.GestaoException;
 import java.util.ArrayList;
 
 /*

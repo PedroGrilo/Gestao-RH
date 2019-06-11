@@ -1,5 +1,16 @@
+/*
+TODO::
+
+
+ do while : nao sair do menu ao validar a data
+
+ - menu empregado : "deseja inserir mais dias?S/N"
+
+ - ficheiro dos empregados contratados*/
 package gestaorh;
 
+import gestaorh.exceptions.GestaoErro;
+import gestaorh.exceptions.GestaoException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
