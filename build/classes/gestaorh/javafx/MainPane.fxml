@@ -21,7 +21,7 @@ and open the template in the editor.
 
 <fx:root id="AnchorPane" maxHeight="380.0" maxWidth="560.0" pickOnBounds="false" prefHeight="380.0" prefWidth="560.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane prefHeight="353.0" prefWidth="591.0">
+      <BorderPane prefHeight="384.0" prefWidth="605.0">
          <top>
             <HBox prefHeight="58.0" prefWidth="597.0" style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
                <children>
@@ -42,11 +42,27 @@ and open the template in the editor.
                      <font>
                         <Font name="Eras Light ITC" size="18.0" />
                      </font>
+                     <ripplerFill>
+                        <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="#1bc9c4" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </ripplerFill>
                   </JFXButton>
                   <JFXButton contentDisplay="CENTER" graphicTextGap="104.0" prefHeight="57.0" prefWidth="183.0" ripplerFill="#a8e5ed" text="Menu Gestão" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
                      <font>
                         <Font name="Eras Light ITC" size="18.0" />
                      </font>
+                     <ripplerFill>
+                        <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="#1bc9c4" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </ripplerFill>
                   </JFXButton>
                   <ImageView fitHeight="46.0" fitWidth="40.0" focusTraversable="true" opacity="0.93" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +78,7 @@ and open the template in the editor.
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane fx:id="pane_home" layoutY="-1.0" prefHeight="327.0" prefWidth="605.0" style="-fx-background-color: grey;">
+                  <Pane fx:id="pane_home" layoutY="-1.0" prefHeight="327.0" prefWidth="605.0" style="-fx-background-color: #f2f2f2; -fx-background-color: red;">
                      <children>
                         <Label layoutX="153.0" layoutY="41.0" text="Bem vindo(a) ao Menu Principal,">
                            <font>
@@ -78,6 +94,11 @@ and open the template in the editor.
                               <Font name="System Italic" size="21.0" />
                            </font>
                         </Label>
+                        <Pane fx:id="pane_home1" layoutX="-1.0" prefHeight="328.0" prefWidth="605.0" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <JFXButton layoutX="115.0" layoutY="28.0" text="feio" />
+                           </children>
+                        </Pane>
                      </children></Pane>
                </children>
             </AnchorPane>

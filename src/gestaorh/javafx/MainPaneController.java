@@ -30,7 +30,7 @@ public class MainPaneController implements Initializable {
     private JFXButton btn_home;
 
     @FXML
-    private void menuAction(ActionEvent event) {
+    private void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btn_home) {
             pane_home.toFront();
             System.out.println("ola");
