@@ -220,7 +220,6 @@ public class Controller implements Initializable {
         observableListEmpregados = FXCollections.observableArrayList(empregadosAtuais);
         ObservableList<Empregado> filteredEmpregados = FXCollections.observableArrayList();
 
-        System.out.println(toggleBtnSearch. ())
 
         for (Empregado e : empregadosAtuais) {
             if (e.getNome().contains(searchByName.getText())) {
