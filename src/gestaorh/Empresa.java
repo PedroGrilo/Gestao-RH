@@ -213,6 +213,6 @@ public interface Empresa {
      *
      * @param empregados
      */
-    void inserirEmpregados(Empregado[] empregados);
+    void inserirEmpregados(ArrayList<Empregado> empregados);
 
 }

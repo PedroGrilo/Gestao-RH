@@ -46,7 +46,7 @@ public class EmpresaClass implements Empresa {
      * @param empregados
      * @throws GestaoException
      */
-    public void inserirEmpregados(Empregado[] empregados) throws GestaoException {
+    public void inserirEmpregados(ArrayList<Empregado> empregados) throws GestaoException {
 
         int counter = 0;
 

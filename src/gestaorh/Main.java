@@ -11,17 +11,19 @@ package gestaorh;
 
 import gestaorh.exceptions.GestaoErro;
 import gestaorh.exceptions.GestaoException;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 /**
- *
  * @author creep
  */
 public class Main {
@@ -60,7 +62,6 @@ public class Main {
     private static final String NAO_EXISTE_EMP = "Não existe nenhum empregado com o código dado como parâmetro.";
 
     /**
-     *
      * @param empresa
      * @param sourceFile
      * @throws FileNotFoundException
@@ -79,7 +80,6 @@ public class Main {
     }
 
     /**
-     *
      * @param empresa
      * @param file
      * @throws FileNotFoundException
@@ -126,26 +126,27 @@ public class Main {
         fin.close();
     }
 
-    private static void empregadosToBeAdd(Empresa empresa) {
+    public static void empregadosToBeAdd(Empresa empresa) {
 
         Random rand = new Random(System.currentTimeMillis());
         int mes = rand.nextInt(11) + 1;
         int dia = rand.nextInt(29) + 1;
-        Empregado[] empregados = {
-            new NormalClass("Pedro", 1, dia, mes, 2014),
-            new NormalClass("Márcia", 2, dia, mes, 2015),
-            new NormalClass("José", 3, dia, mes, 2018),
-            new ComercialClass("Patricia", 4, dia, mes, 2018),
-            new ComercialClass("Diogo", 5, dia, mes, 2012),
-            new ComercialClass("Alfredo", 6, dia, mes, 2010),
-            new GestorClass("António", 7, dia, mes, 2015),
-            new GestorClass("Beatriz", 8, dia, mes, 2016),
-            new GestorClass("Ana", 9, dia, mes, 2017),
-            new MotoristaClass("Andre", 10, dia, mes, 2010),
-            new MotoristaClass("Manel", 11, dia, mes, 2017),
-            new MotoristaClass("Josefino", 12, 5, 5, 2019)
-        };
-        empresa.inserirEmpregados(empregados);
+        ArrayList<Empregado> empregadosTemp = new ArrayList<>();
+
+        empregadosTemp.add(new NormalClass("Pedro", 1, dia, mes, 2014));
+        empregadosTemp.add(new NormalClass("Márcia", 2, dia, mes, 2015));
+        empregadosTemp.add(new NormalClass("José", 3, dia, mes, 2018));
+        empregadosTemp.add(new ComercialClass("Patricia", 4, dia, mes, 2018));
+        empregadosTemp.add(new ComercialClass("Diogo", 5, dia, mes, 2012));
+        empregadosTemp.add(new ComercialClass("Alfredo", 6, dia, mes, 2010));
+        empregadosTemp.add(new GestorClass("António", 7, dia, mes, 2015));
+        empregadosTemp.add(new GestorClass("Beatriz", 8, dia, mes, 2016));
+        empregadosTemp.add(new GestorClass("Ana", 9, dia, mes, 2017));
+        empregadosTemp.add(new MotoristaClass("Andre", 10, dia, mes, 2010));
+        empregadosTemp.add(new MotoristaClass("Manel", 11, dia, mes, 2017));
+        empregadosTemp.add(new MotoristaClass("Josefino", 12, 5, 5, 2019));
+
+        empresa.inserirEmpregados(empregadosTemp);
     }
 
     private static String firstLetterUP(String str) {
@@ -296,7 +297,7 @@ public class Main {
 
         if (empresa.adicionarBonus(codigo, valor, mes, ano)) {
             System.out.println(VENDA_SUCESSO);
-        };
+        }
     }
 
     private static void adicionarKmPercorricos(UserInput ui, Empresa empresa) {
@@ -427,7 +428,6 @@ public class Main {
     }
 
     /**
-     *
      * @param args
      */
     public static void main(String[] args) {
