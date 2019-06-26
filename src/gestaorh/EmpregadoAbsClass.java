@@ -152,4 +152,8 @@ public abstract class EmpregadoAbsClass implements Empregado {
      */
     public abstract void setBonus(double valor, int mes, int ano);
 
+    @Override
+    public String toString() {
+        return "Codigo: " + codigo + " - Nome: "+nome;
+    }
 }
