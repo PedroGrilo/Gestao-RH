@@ -5,19 +5,19 @@ package gestaorh;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+
 import gestaorh.exceptions.GestaoErro;
 import gestaorh.exceptions.GestaoException;
+
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- *
  * @author Pedro Grilo
  */
 public class EmpresaClass implements Empresa {
 
-    private ArrayList<Empregado> empregado;
     private static double salarioPorDia = 10.0;
     private static double bonusPorAntiguidade = 0.05;//5% de bonus do salario por ano
     private static double subsidioAlimentacao = 4.79; //4.79€ por dia de trabalho
@@ -25,6 +25,7 @@ public class EmpresaClass implements Empresa {
     private static double percentagemVendas = 0.20;// percentagem
     private static double premioGestor = 1.15;  //15% premio gestor
     private static DecimalFormat decimal2casas = new DecimalFormat("#.##");
+    private ArrayList<Empregado> empregado;
 
     /**
      *
@@ -34,7 +35,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @return
      */
     public ArrayList<Empregado> getEmpregado() {
@@ -42,7 +42,13 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
+     * @param empregado
+     */
+    public void setEmpregado(ArrayList<Empregado> empregado) {
+        this.empregado = empregado;
+    }
+
+    /**
      * @param empregados
      * @throws GestaoException
      */
@@ -64,15 +70,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
-     * @param empregado
-     */
-    public void setEmpregado(ArrayList<Empregado> empregado) {
-        this.empregado = empregado;
-    }
-
-    /**
-     *
      * @param codigo
      * @param categoria
      * @return
@@ -88,7 +85,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param codigo
      * @param valor
      * @param mes
@@ -112,7 +108,8 @@ public class EmpresaClass implements Empresa {
         return false;
     }
 
-    private int anoMenorEntradaEmpresa() {
+    @Override
+    public int anoMenorEntradaEmpresa() {
         Date dataAtual = new DateClass();
         int anoMenor = dataAtual.getYear();
         for (int i = 0; i < empregado.size(); i++) {
@@ -123,7 +120,7 @@ public class EmpresaClass implements Empresa {
         return anoMenor;
     }
 
-    private double calculoXTrimestre(int ano, int posInicial, int posFinal) {
+    public double calcularCustos(int ano, int posInicial, int posFinal) {
         double custos = 0.0;
         for (Empregado e : empregado) {
             for (int i = posInicial; i < posFinal; i++) {
@@ -134,15 +131,14 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param ano
      * @return
      */
     public String calcularTrimestreAno(int ano) {
-        double prTrim = calculoXTrimestre(ano, 0, 3); //calcular 1º Trimestre
-        double segTrim = calculoXTrimestre(ano, 3, 6); //calcular 2º Trimestre
-        double terTrim = calculoXTrimestre(ano, 6, 9); //calcular 3º Trimestre
-        double quarTrim = calculoXTrimestre(ano, 9, 12); //calcular 4º Trimestre
+        double prTrim = calcularCustos(ano, 0, 3); //calcular 1º Trimestre
+        double segTrim = calcularCustos(ano, 3, 6); //calcular 2º Trimestre
+        double terTrim = calcularCustos(ano, 6, 9); //calcular 3º Trimestre
+        double quarTrim = calcularCustos(ano, 9, 12); //calcular 4º Trimestre
 
         return "\n\n  Ano : " + ano
                 + "\n\n   Primeiro Trimestre: " + decimal2casas.format(prTrim) + "€"
@@ -152,13 +148,12 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param ano
      * @return
      */
     public String calcularSemestreAno(int ano) {
-        double prSem = calculoXTrimestre(ano, 0, 3) + calculoXTrimestre(ano, 3, 6);
-        double segSem = calculoXTrimestre(ano, 6, 9) + calculoXTrimestre(ano, 9, 12);
+        double prSem = calcularCustos(ano, 0, 3) + calcularCustos(ano, 3, 6);
+        double segSem = calcularCustos(ano, 6, 9) + calcularCustos(ano, 9, 12);
 
         return "\n\n  Ano : " + ano
                 + "\n\n    Primeiro Semestre: " + decimal2casas.format(prSem) + "€"
@@ -166,18 +161,16 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param ano
      * @return
      */
     public String calcularCustosAnual(int ano) {
-        double custos = calculoXTrimestre(ano, 0, 3) + calculoXTrimestre(ano, 3, 6) + calculoXTrimestre(ano, 6, 9) + calculoXTrimestre(ano, 9, 12);
+        double custos = calcularCustos(ano, 0, 3) + calcularCustos(ano, 3, 6) + calcularCustos(ano, 6, 9) + calcularCustos(ano, 9, 12);
 
         return "\n\n  Total no ano(" + ano + ") :" + decimal2casas.format(custos) + "€";
     }
 
     /**
-     *
      * @param periodo
      * @return
      */
@@ -201,7 +194,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param codigo
      * @param ano
      * @param mes
@@ -221,7 +213,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param e
      * @param mes
      * @param ano
@@ -253,7 +244,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @return
      */
     public String getTotalSalariosPagar() {
@@ -267,7 +257,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @return
      */
     public String getTotalEmpregados() {
@@ -279,7 +268,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @return
      */
     public String getTotalEmpregadoFiltrados() {
@@ -307,7 +295,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param codigo
      * @return
      * @throws GestaoException
@@ -322,7 +309,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param emp
      * @return
      * @throws GestaoException
@@ -338,7 +324,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param codigo
      * @throws GestaoException
      */
@@ -357,7 +342,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param categoria
      * @return
      */
@@ -373,7 +357,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param e
      * @return
      * @throws GestaoException
@@ -393,7 +376,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param codigo
      * @return
      * @throws GestaoException
@@ -408,7 +390,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param codigo
      * @return
      */
@@ -422,7 +403,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day
@@ -435,7 +415,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day
@@ -448,7 +427,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day
@@ -461,7 +439,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day
@@ -474,7 +451,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param data1
      * @param data2
      * @return
@@ -494,7 +470,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @return
      */
     public double getSubsidioAlimentacao() {
@@ -502,7 +477,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @return
      */
     public double getSalarioPorDia() {
@@ -510,7 +484,6 @@ public class EmpresaClass implements Empresa {
     }
 
     /**
-     *
      * @param empregado
      * @return
      */
