@@ -48,33 +48,6 @@ public class Controller implements Initializable {
     private ImageView closeButton;
 
     @FXML
-    private Pane pane_empregados;
-
-    @FXML
-    private RadioButton intDiaTrabalho;
-
-    @FXML
-    private ToggleGroup menuEmpregados;
-
-    @FXML
-    private RadioButton adicionarVendas;
-
-    @FXML
-    private RadioButton adicionarKilometros;
-
-    @FXML
-    private Pane pane_gestao1;
-
-    @FXML
-    private JFXTextField codigoEmpregado;
-
-    @FXML
-    private JFXDatePicker diaTrabalho;
-
-    @FXML
-    private JFXButton botaoSubmeter;
-
-    @FXML
     private Pane pane_home;
 
     @FXML
@@ -100,36 +73,6 @@ public class Controller implements Initializable {
 
     @FXML
     private JFXButton getEmpregadoCodigo;
-
-    @FXML
-    private Pane paneShowAll;
-
-    @FXML
-    private JFXButton showFichaEmp;
-
-    @FXML
-    private JFXListView<Empregado> listViewAllEmp;
-
-    @FXML
-    private JFXTextField searchByName;
-
-    @FXML
-    private JFXToggleButton toggleBtnSearch;
-
-    @FXML
-    private Pane paneInserirFicha;
-
-    @FXML
-    private JFXComboBox<String> tipoEmpregadoCombo;
-
-    @FXML
-    private JFXTextField codigoInserirEmp;
-
-    @FXML
-    private JFXTextField nomeInserirEmp;
-
-    @FXML
-    private JFXDatePicker dataInserirEmp;
 
     @FXML
     private Pane paneInserirVarios;
@@ -159,6 +102,24 @@ public class Controller implements Initializable {
     private JFXButton inserirEmpregadoTemp;
 
     @FXML
+    private Pane paneShowAll;
+
+    @FXML
+    private JFXButton showFichaEmp;
+
+    @FXML
+    private JFXListView<Empregado> listViewAllEmp;
+
+    @FXML
+    private JFXTextField searchByName;
+
+    @FXML
+    private JFXToggleButton toggleBtnSearch;
+
+    @FXML
+    private JFXToggleButton toggleVendasDistancia;
+
+    @FXML
     private Pane paneSalarios;
 
     @FXML
@@ -172,6 +133,39 @@ public class Controller implements Initializable {
 
     @FXML
     private JFXRadioButton radioSemestral;
+
+    @FXML
+    private JFXComboBox comboBoxShowSalarios;
+
+    @FXML
+    private JFXComboBox comboBoxEscolherAno;
+
+    @FXML
+    private Label labelFixedCustos;
+
+    @FXML
+    private Label labelCustos;
+
+    @FXML
+    private JFXButton buttonCalcular;
+
+    @FXML
+    private Pane paneInserirFicha;
+
+    @FXML
+    private JFXComboBox<String> tipoEmpregadoCombo;
+
+    @FXML
+    private JFXTextField codigoInserirEmp;
+
+    @FXML
+    private JFXTextField nomeInserirEmp;
+
+    @FXML
+    private JFXDatePicker dataInserirEmp;
+
+    @FXML
+    private Pane paneSalarios1;
 
     @FXML
     private RadioButton radioInserirFicha;
@@ -195,17 +189,62 @@ public class Controller implements Initializable {
     private RadioButton radioShowSalarios;
 
     @FXML
-    private JFXComboBox comboBoxShowSalarios;
+    private Pane pane_empregados;
 
     @FXML
-    private JFXComboBox comboBoxEscolherAno;
+    private RadioButton intDiaTrabalho;
 
     @FXML
-    private Label labelCustos;
+    private ToggleGroup menuEmpregados;
+
+    @FXML
+    private RadioButton adicionarBonus;
+
+    @FXML
+    private Pane paneBonus;
+
+    @FXML
+    private JFXTextField codigoEmpregadoVenda;
+
+    @FXML
+    private JFXTextField valorBonus;
+
+    @FXML
+    private JFXDatePicker diaBonus;
+
+    @FXML
+    private JFXButton botaoSubmeterBonus;
+
+    @FXML
+    private JFXTextField codigoEmpregadoKm;
+
+    @FXML
+    private JFXTextField valorKm;
+
+
+    @FXML
+    private Pane paneGestaoDiaTrabalho;
+
+    @FXML
+    private JFXTextField codigoEmpregado;
+
+    @FXML
+    private JFXDatePicker diaTrabalho;
+
+    @FXML
+    private JFXButton botaoSubmeter;
+
 
     private List<Empregado> empregadosTemp = new ArrayList<>();
 
     private ObservableList<Empregado> nomesObs;
+
+    private static void verificarDatas(Empresa empresa, int codigo, Date data1, Date data2) {
+        Date dataEntradaEmpresa = empresa.getEmpregado(codigo).getDataEntradaEmpresa();
+        if ((!empresa.verifyDate(data2, dataEntradaEmpresa)) || (!empresa.verifyDate(data1, data2))) {
+            throw new GestaoException(GestaoErro.DATA_INVALIDA);
+        }
+    }
 
     public void initialize(URL url, ResourceBundle rb) {
         empresa = new EmpresaClass();
@@ -218,76 +257,81 @@ public class Controller implements Initializable {
     }
 
     public void loadGraficos() {
-        barChart.getData().clear();
-        barChartCatAxis.setLabel("Tipo de Empregado");
-        barChartNumbAxis.setLabel("Quantidade");
-        barChart.setTitle("Numero de Empregados por Categoria");
+        try {
+            barChart.getData().clear();
+            barChartCatAxis.setLabel("Tipo de Empregado");
+            barChartNumbAxis.setLabel("Quantidade");
+            barChart.setTitle("Numero de Empregados por Categoria");
 
-        XYChart.Series normal = new XYChart.Series();
-        normal.setName("Normal");
+            XYChart.Series normal = new XYChart.Series();
+            normal.setName("Normal");
 
-        XYChart.Series gestor = new XYChart.Series();
-        gestor.setName("Gestor");
+            XYChart.Series gestor = new XYChart.Series();
+            gestor.setName("Gestor");
 
-        XYChart.Series motorista = new XYChart.Series();
-        motorista.setName("Motorista");
+            XYChart.Series motorista = new XYChart.Series();
+            motorista.setName("Motorista");
 
-        XYChart.Series comercial = new XYChart.Series();
-        comercial.setName("Comercial");
+            XYChart.Series comercial = new XYChart.Series();
+            comercial.setName("Comercial");
 
-        normal.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Normal"), empresa.getNumeroEmpregados("Normal")));
-        gestor.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Gestor"), empresa.getNumeroEmpregados("Gestor")));
-        motorista.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Motorista"), empresa.getNumeroEmpregados("Motorista")));
-        comercial.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Comercial"), empresa.getNumeroEmpregados("Comercial")));
+            normal.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Normal"), empresa.getNumeroEmpregados("Normal")));
+            gestor.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Gestor"), empresa.getNumeroEmpregados("Gestor")));
+            motorista.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Motorista"), empresa.getNumeroEmpregados("Motorista")));
+            comercial.getData().add(new XYChart.Data<>("" + empresa.getNumeroEmpregados("Comercial"), empresa.getNumeroEmpregados("Comercial")));
 
-        barChart.getData().addAll(comercial, gestor, motorista, normal);
-
+            barChart.getData().addAll(comercial, gestor, motorista, normal);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
-
     public void getCustos() {
+        try {
+            labelFixedCustos.setVisible(true);
+            int index = comboBoxShowSalarios.getSelectionModel().getSelectedIndex();
+            int ano = Integer.parseInt(comboBoxEscolherAno.getSelectionModel().getSelectedItem().toString());
+            double custos = -1;
+            if (radioMensal.isSelected()) {
+                custos = empresa.calcularCustos(ano, index, index + 1);
+            }
+            if (radioTrimestral.isSelected()) {
+                switch (index) {
+                    case 0:
+                        custos = empresa.calcularCustos(ano, 0, 3); //calcular 1º Trimestre
+                        break;
+                    case 1:
+                        custos = empresa.calcularCustos(ano, 3, 6); //calcular 2º Trimestre
+                        break;
+                    case 2:
+                        custos = empresa.calcularCustos(ano, 6, 9); //calcular 3º Trimestre
+                        break;
+                    case 3:
+                        custos = empresa.calcularCustos(ano, 9, 12); //calcular 4º Trimestre
+                        break;
+                    default:
+                        custos = 0.0;
 
-        int index = comboBoxShowSalarios.getSelectionModel().getSelectedIndex();
-        int ano = Integer.parseInt(comboBoxEscolherAno.getSelectionModel().getSelectedItem().toString());
-        double custos = -1;
-        if (radioMensal.isSelected()) {
-            custos = empresa.calcularCustos(ano, index, index + 1);
-        }
-        if (radioTrimestral.isSelected()) {
-            switch (index) {
-                case 0:
-                    custos = empresa.calcularCustos(ano, 0, 3); //calcular 1º Trimestre
-                    break;
-                case 1:
-                    custos = empresa.calcularCustos(ano, 3, 6); //calcular 2º Trimestre
-                    break;
-                case 2:
-                    custos = empresa.calcularCustos(ano, 6, 9); //calcular 3º Trimestre
-                    break;
-                case 3:
-                    custos = empresa.calcularCustos(ano, 9, 12); //calcular 4º Trimestre
-                    break;
-                default:
-                    custos = 0.0;
+                }
 
             }
-        }
+            if (radioSemestral.isSelected()) {
+                switch (index) {
+                    case 0:
+                        custos = empresa.calcularCustos(ano, 0, 6); //calcular 1º Semestre
+                        break;
+                    case 1:
+                        custos = empresa.calcularCustos(ano, 6, 12); //calcular 2º Semestre
+                        break;
+                    default:
+                        custos = 0.0;
+                }
 
-        if (radioSemestral.isSelected()) {
-            switch (index) {
-                case 0:
-                    custos = empresa.calcularCustos(ano, 0, 6); //calcular 1º Semestre
-                    break;
-                case 1:
-                    custos = empresa.calcularCustos(ano, 6, 12); //calcular 2º Semestre
-                    break;
-                default:
-                    custos = 0.0;
             }
-
+            labelCustos.setText(Math.ceil(custos) + "€");
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
         }
-
-        labelCustos.setText(Math.ceil(custos) + "€");
     }
 
     private void fillComboBox() {
@@ -308,27 +352,41 @@ public class Controller implements Initializable {
     }
 
     public void acaoRBShowSalarios(ActionEvent event) {
-        comboBoxShowSalarios.setDisable(false);
-        comboBoxEscolherAno.setDisable(false);
-        ObservableList<String> elementsOBL = FXCollections.observableArrayList();
+        try {
+            comboBoxShowSalarios.setDisable(false);
+            comboBoxEscolherAno.setDisable(false);
+            buttonCalcular.setDisable(false);
+
+            ObservableList<String> elementsOBL = FXCollections.observableArrayList();
 
 
-        if (event.getSource() == radioMensal) {
-            comboBoxShowSalarios.setPromptText("Introduza um Mês");
-            elementsOBL.addAll("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+            if (event.getSource() == radioMensal) {
+                comboBoxShowSalarios.setPromptText("Introduza um Mês");
+                elementsOBL.addAll("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+            }
+            if (event.getSource() == radioTrimestral) {
+                comboBoxShowSalarios.setPromptText("Introduza um Trimestre");
+                elementsOBL.addAll("1º Trimestre", "2º Trimestre", "3º Trimestre", "4º Trimestre");
+            }
+            if (event.getSource() == radioSemestral) {
+                comboBoxShowSalarios.setPromptText("Introduza um Semestre");
 
+                elementsOBL.addAll("1º Semestre", "2º Semestre");
+            }
+
+            comboBoxShowSalarios.setItems(elementsOBL);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
         }
-        if (event.getSource() == radioTrimestral) {
-            comboBoxShowSalarios.setPromptText("Introduza um Trimestre");
-            elementsOBL.addAll("1º Trimestre", "2º Trimestre", "3º Trimestre", "4º Trimestre");
-        }
-        if (event.getSource() == radioSemestral) {
-            comboBoxShowSalarios.setPromptText("Introduza um Semestre");
+    }
 
-            elementsOBL.addAll("1º Semestre", "2º Semestre");
-        }
+    public void putButtonDisable() {
+        showFichaEmp.setDisable(false);
+    }
 
-        comboBoxShowSalarios.setItems(elementsOBL);
+    public void mostrarFicha() {
+        Empregado e = listViewAllEmp.getSelectionModel().getSelectedItem();
+        criarSceneUser(empresa.getEmpregadoString(e.getCodigo()));
     }
 
     public void showAllEmpListView() {
@@ -337,13 +395,18 @@ public class Controller implements Initializable {
         observableListEmpregados = FXCollections.observableArrayList(empregadosAtuais);
         ObservableList<Empregado> filteredEmpregados = FXCollections.observableArrayList();
 
-
         for (Empregado e : empregadosAtuais) {
-            if (e.getNome().contains(searchByName.getText())) {
-                filteredEmpregados.add(e);
+            if (toggleBtnSearch.isSelected()) {
+                if (e.getNome().toLowerCase().contains(searchByName.getText().toLowerCase())) {
+                    filteredEmpregados.add(e);
+                }
+            } else {
+                if (String.valueOf(e.getCodigo()).contains(searchByName.getText())) {
+                    filteredEmpregados.add(e);
+                }
             }
-        }
 
+        }
         listViewAllEmp.setItems(filteredEmpregados);
 
     }
@@ -421,6 +484,9 @@ public class Controller implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Gestão de Recursos Humanos");
         try {
+            if (empregadosTemp.size() == 0) {
+                throw new GestaoException(GestaoErro.CAMPOS_VAZIOS);
+            }
             ArrayList<Empregado> temp = new ArrayList<>();
             temp.addAll(empregadosTemp);
             empresa.inserirEmpregados(temp);
@@ -430,9 +496,13 @@ public class Controller implements Initializable {
             empregadosTemp.clear();
             nomesObs = FXCollections.observableArrayList(empregadosTemp);
             listViewTemp.setItems(nomesObs);
+        } catch (GestaoException e) {
+            alert.setHeaderText("Erro");
+            alert.setContentText(e.getMessage());
         } catch (Exception e) {
             alert.setHeaderText("Erro");
             alert.setContentText("Verificar Consola");
+            System.out.println(e.getMessage());
         } finally {
             alert.show();
         }
@@ -475,11 +545,21 @@ public class Controller implements Initializable {
     }
 
     public void getEmpregadoCodigo() {
-        checkNulls(codigoPesquisarEmp.getText());
-
-        int codigo = Integer.parseInt(codigoPesquisarEmp.getText());
-        criarSceneUser(empresa.getEmpregadoString(codigo));
-
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Gestão de Recursos Humanos");
+        alert.setHeaderText("Erro");
+        try {
+            checkNulls(codigoPesquisarEmp.getText());
+            int codigo = Integer.parseInt(codigoPesquisarEmp.getText());
+            criarSceneUser(empresa.getEmpregadoString(codigo));
+        } catch (GestaoException e) {
+            alert.setContentText(e.getMessage());
+            alert.show();
+        } catch (Exception e) {
+            alert.setContentText("Ver consola...");
+            System.out.println(e.getMessage());
+            alert.show();
+        }
     }
 
     private void compareDates(int diaEntradaEmpresa, int mesEntradaEmpresa, int anoEntradaEmpresa) {
@@ -495,9 +575,7 @@ public class Controller implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Gestão de Recursos Humanos");
         alert.setHeaderText("Erro");
-
         try {
-
             checkNulls(codigoInserirEmp.getText());
             checkNulls(nomeInserirEmp.getText());
 
@@ -537,6 +615,7 @@ public class Controller implements Initializable {
 
 
         } catch (GestaoException e) {
+
             alert.setContentText(e.getMessage());
             alert.show();
         } catch (Exception e) {
@@ -549,8 +628,6 @@ public class Controller implements Initializable {
 
     @FXML
     public void submeterDiaTrabalho() {
-
-
         try {
             System.out.println("Dia adicionado com sucesso");
 
@@ -568,13 +645,68 @@ public class Controller implements Initializable {
             empresa.picarDiaTrabalho(codigo, anoDeTrabalho, mesDeTrabalho, diaDeTrabalho);
             empresa.calcularCustos(Periodos.ANUAIS);
         } catch (GestaoException e) {
-            //TODO: colocar alertBox
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Gestão de Recursos Humanos");
+            alert.setHeaderText("Erro");
+            alert.setContentText(e.getMessage());
+            alert.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
 
     }
+
+    public void mudarVendasDistancia() {
+        if (!toggleVendasDistancia.isSelected()) {
+            valorBonus.setPromptText("Introduzir o Valor da Venda (€)");
+            diaBonus.setPromptText("Introduzir Mês da Venda");
+        } else {
+            valorBonus.setPromptText("Introduzir Distância percorrida (Km)");
+            diaBonus.setPromptText("Introduzir Mês da Distância");
+        }
+    }
+
+    public void adicionarBonus() {
+        try {
+            checkNulls(codigoEmpregadoVenda.getText());
+            int codigo = Integer.parseInt(codigoEmpregadoVenda.getText());
+
+            if (!toggleVendasDistancia.isSelected()) {
+                empresa.checkCategoriaCodigo(codigo, Categorias.COMERCIAL.toString());
+            } else {
+                empresa.checkCategoriaCodigo(codigo, Categorias.MOTORISTA.toString());
+            }
+            checkNulls(valorBonus.getText());
+            double valor = Double.parseDouble(valorBonus.getText());
+
+            LocalDate dataVendaFX = diaBonus.getValue();
+
+            int ano = dataVendaFX.getYear();
+            int mes = dataVendaFX.getMonthValue();
+            int dia = dataVendaFX.getDayOfMonth();
+
+
+            Date data = new DateClass(dia, mes, ano);
+
+            Date dataAtual = new DateClass();
+            verificarDatas(empresa, codigo, dataAtual, data);
+
+            if (empresa.adicionarBonus(codigo, valor, mes, ano)) {
+                System.out.println("sucesso");
+            }
+
+        } catch (GestaoException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Gestão de Recursos Humanos");
+            alert.setHeaderText("Erro");
+            alert.setContentText(e.getMessage());
+            alert.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     @FXML
     private void exitBotao() {
@@ -588,13 +720,26 @@ public class Controller implements Initializable {
             pane_home.toFront();
             //System.out.println("Página Home");
         }
-        if (event.getSource() == botao_emp) {
-            pane_empregados.toFront();
-            //System.out.println("Página Empregados");
-        }
+
+        //Menu Gestão
         if (event.getSource() == botao_gest) {
             pane_gestao.toFront();
             //System.out.println("Página Gestão");
+        }
+        if (event.getSource() == intDiaTrabalho) {
+            paneGestaoDiaTrabalho.toFront();
+        }
+        if (event.getSource() == adicionarBonus) {
+            paneBonus.toFront();
+        }
+
+
+        // Menu Empregados //
+        {
+            if (event.getSource() == botao_emp) {
+                pane_empregados.toFront();
+
+            }
         }
         if (event.getSource() == radioInserirFicha) {
             paneInserirFicha.toFront();
@@ -612,7 +757,6 @@ public class Controller implements Initializable {
         if (event.getSource() == radioApresentarTodosEmp) {
             paneShowAll.toFront();
         }
-
         if (event.getSource() == radioShowSalarios) {
             fillComboBox();
             paneSalarios.toFront();

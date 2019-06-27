@@ -242,7 +242,6 @@ public class Main {
 
     private static void verificarDatas(Empresa empresa, int codigo, Date data1, Date data2) {
         Date dataEntradaEmpresa = empresa.getEmpregado(codigo).getDataEntradaEmpresa();
-
         if ((!empresa.verifyDate(data2, dataEntradaEmpresa)) || (!empresa.verifyDate(data1, data2))) {
             throw new GestaoException(GestaoErro.DATA_INVALIDA);
         }
