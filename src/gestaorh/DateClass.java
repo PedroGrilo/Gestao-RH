@@ -5,23 +5,24 @@ package gestaorh;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+
 import gestaorh.exceptions.GestaoErro;
 import gestaorh.exceptions.GestaoException;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
 /**
- *
  * @author Pedro Grilo
  */
-public class DateClass implements Date {
+public class DateClass implements Date, Serializable {
 
     private int day;
     private int month;
     private int year;
 
     /**
-     *
      * @param day
      * @param month
      * @param year
@@ -41,9 +42,9 @@ public class DateClass implements Date {
      *
      */
     public DateClass() {
-        this.day = LocalDate.now().getDayOfMonth();
-        this.month = LocalDate.now().getMonthValue();
-        this.year = LocalDate.now().getYear();
+        day = LocalDate.now().getDayOfMonth();
+        month = LocalDate.now().getMonthValue();
+        year = LocalDate.now().getYear();
     }
 
     private boolean validateDate(int day, int month, int year) {
@@ -88,7 +89,6 @@ public class DateClass implements Date {
     }
 
     /**
-     *
      * @return
      */
     public int getDay() {
@@ -96,17 +96,15 @@ public class DateClass implements Date {
     }
 
     /**
-     *
      * @param day
      */
     public void setDay(int day) {
-        if (validateDate(day, this.month, this.year)) {
+        if (validateDate(day, month, year)) {
             this.day = day;
         }
     }
 
     /**
-     *
      * @return
      */
     public int getMonth() {
@@ -114,17 +112,15 @@ public class DateClass implements Date {
     }
 
     /**
-     *
      * @param month
      */
     public void setMonth(int month) {
-        if (validateDate(this.day, month, this.year)) {
+        if (validateDate(day, month, year)) {
             this.month = month;
         }
     }
 
     /**
-     *
      * @return
      */
     public int getYear() {
@@ -132,17 +128,15 @@ public class DateClass implements Date {
     }
 
     /**
-     *
      * @param year
      */
     public void setYear(int year) {
-        if (validateDate(this.day, this.month, year)) {
+        if (validateDate(day, month, year)) {
             this.year = year;
         }
     }
 
     /**
-     *
      * @return
      */
     public int getMonthsTilToday() {
@@ -154,7 +148,6 @@ public class DateClass implements Date {
     }
 
     /**
-     *
      * @return
      */
     public int getYearsTilToday() {  // era getAge

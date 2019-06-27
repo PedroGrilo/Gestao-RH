@@ -1,6 +1,8 @@
 package gestaorh;
 
 import gestaorh.exceptions.GestaoException;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
@@ -8,16 +10,15 @@ import java.util.ArrayList;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+
 /**
- *
  * @author Pedro Grilo
  */
-public class ComercialClass extends EmpregadoAbsClass implements Comercial {
+public class ComercialClass extends EmpregadoAbsClass implements Comercial, Serializable {
 
     private ArrayList<Bonus> vendas;
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day

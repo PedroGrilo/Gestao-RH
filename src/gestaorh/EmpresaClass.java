@@ -9,6 +9,7 @@ package gestaorh;
 import gestaorh.exceptions.GestaoErro;
 import gestaorh.exceptions.GestaoException;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 /**
  * @author Pedro Grilo
  */
-public class EmpresaClass implements Empresa {
+public class EmpresaClass implements Empresa, Serializable {
 
     private static double salarioPorDia = 10.0;
     private static double bonusPorAntiguidade = 0.05;//5% de bonus do salario por ano

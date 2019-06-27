@@ -6,14 +6,15 @@ package gestaorh;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+
+import java.io.Serializable;
+
 /**
- *
  * @author Pedro Grilo
  */
-public class NormalClass extends EmpregadoAbsClass implements Normal {
+public class NormalClass extends EmpregadoAbsClass implements Normal, Serializable {
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day
