@@ -88,36 +88,171 @@
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
                         <Line endX="683.0" />
-                        <Pane fx:id="pane_home" prefHeight="345.0" prefWidth="600.0" style="-fx-background-color: #f7f5f4;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Pane fx:id="pane_empregados" prefHeight="381.0" prefWidth="683.0" style="-fx-background-color: #f7f5f4;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <BorderPane prefHeight="382.0" prefWidth="683.0">
+                                <BorderPane prefHeight="383.0" prefWidth="683.0">
                                     <top>
-                                        <Label alignment="CENTER" prefHeight="43.0" prefWidth="594.0" text="Menu Home" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                                        <Label alignment="CENTER" prefHeight="43.0" prefWidth="467.0" text="Menu Empregados" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
                                             <font>
                                                 <Font name="Nirmala UI" size="35.0" />
                                             </font>
-                                            <textFill>
-                                                <LinearGradient endX="0.5436893203883495" endY="1.0" startX="1.0">
-                                                    <stops>
-                                                        <Stop color="#1392d1" />
-                                                        <Stop color="#6540a3" offset="1.0" />
-                                                    </stops>
-                                                </LinearGradient>
-                                            </textFill>
+                                 <textFill>
+                                    <LinearGradient endX="0.5436893203883495" endY="1.0" startX="1.0">
+                                       <stops>
+                                          <Stop color="#1392d1" />
+                                          <Stop color="#6540a3" offset="1.0" />
+                                       </stops>
+                                    </LinearGradient>
+                                 </textFill>
                                         </Label>
                                     </top>
-                                    <center>
-                                        <AnchorPane prefHeight="297.0" prefWidth="587.0" BorderPane.alignment="CENTER">
+                                    <left>
+                                        <VBox prefHeight="348.0" prefWidth="225.0" spacing="6.0" BorderPane.alignment="CENTER">
                                             <children>
-                                                <Label layoutX="198.0" layoutY="79.0" prefHeight="123.0" prefWidth="289.0" text="Bem-vindo à Gestão&#10;de Recursos Humanos!" textAlignment="CENTER" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="79.0">
-                                       <font>
-                                          <Font name="Nirmala UI Semilight" size="28.0" />
-                                       </font></Label>
-                                                <ImageView fitHeight="234.0" fitWidth="378.0" layoutX="225.0" layoutY="37.0" opacity="0.16" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../gestao2.png" />
-                                                    </image>
-                                                </ImageView>
+                                                <RadioButton fx:id="intDiaTrabalho" mnemonicParsing="false" onAction="#acaoBotao" prefHeight="45.0" prefWidth="162.0" selected="true" text="Introduzir dia de&#10;trabalho&#10;&#10;">
+                                                    <toggleGroup>
+                                                        <ToggleGroup fx:id="menuEmpregados" />
+                                                    </toggleGroup>
+                                                </RadioButton>
+                                                <RadioButton fx:id="adicionarBonus" mnemonicParsing="false" onAction="#acaoBotao" prefHeight="52.0" prefWidth="165.0" text="Adicionar Bonus&#10;" toggleGroup="$menuEmpregados" />
+                                            </children>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                            <padding>
+                                                <Insets left="15.0" top="20.0" />
+                                            </padding>
+                                            <BorderPane.margin>
+                                                <Insets />
+                                            </BorderPane.margin>
+                                        </VBox>
+                                    </left>
+                                    <center>
+                                        <AnchorPane prefHeight="332.0" prefWidth="430.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Pane fx:id="paneBonus" prefHeight="325.0" prefWidth="457.0" style="-fx-background-color: #f7f5f4;">
+                                                    <children>
+                                                        <VBox layoutX="97.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="264.0" spacing="25.0">
+                                                            <children>
+                                                                <JFXTextField fx:id="codigoEmpregadoVenda" labelFloat="true" prefHeight="31.0" prefWidth="200.0" promptText="Introduzir código do empregado">
+                                                                    <focusColor>
+                                                                        <LinearGradient endX="1.0" endY="0.9">
+                                                                            <stops>
+                                                                                <Stop color="#8420ff" />
+                                                                                <Stop color="#4776e6" offset="0.007662835249042145" />
+                                                                                <Stop color="#8e56e8" offset="0.502903187581467" />
+                                                                                <Stop color="#4777e5" offset="1.0" />
+                                                                            </stops>
+                                                                        </LinearGradient>
+                                                                    </focusColor>
+                                                                </JFXTextField>
+                                                                <JFXTextField fx:id="valorBonus" labelFloat="true" prefHeight="31.0" prefWidth="200.0" promptText="Introduzir o Valor da Venda ( € )">
+                                                                    <focusColor>
+                                                                        <LinearGradient endX="1.0" endY="0.9">
+                                                                            <stops>
+                                                                                <Stop color="#8420ff" />
+                                                                                <Stop color="#4776e6" offset="0.007662835249042145" />
+                                                                                <Stop color="#8e56e8" offset="0.502903187581467" />
+                                                                                <Stop color="#4777e5" offset="1.0" />
+                                                                            </stops>
+                                                                        </LinearGradient>
+                                                                    </focusColor>
+                                                                </JFXTextField>
+                                                                <JFXDatePicker fx:id="diaBonus" prefHeight="31.0" prefWidth="269.0" promptText="Introduzir Dia da Venda">
+                                                                    <defaultColor>
+                                                                        <LinearGradient endX="1.0" endY="1.0">
+                                                                            <stops>
+                                                                                <Stop color="#338dcd" />
+                                                                                <Stop color="#a224d0" offset="1.0" />
+                                                                            </stops>
+                                                                        </LinearGradient>
+                                                                    </defaultColor>
+                                                                </JFXDatePicker>
+                                                                <JFXButton fx:id="botaoSubmeterBonus" onAction="#adicionarBonus" prefHeight="33.0" prefWidth="218.0" style="-fx-border-color: black;" text="Submeter">
+                                                                    <ripplerFill>
+                                                                        <LinearGradient endX="1.0" endY="1.0">
+                                                                            <stops>
+                                                                                <Stop color="#009384" />
+                                                                                <Stop color="WHITE" offset="1.0" />
+                                                                            </stops>
+                                                                        </LinearGradient>
+                                                                    </ripplerFill>
+                                                                </JFXButton>
+                                                            </children>
+                                                        </VBox>
+                                                        <JFXToggleButton fx:id="toggleVendasDistancia" layoutX="192.0" onAction="#mudarVendasDistancia" size="8.0" text=" " toggleColor="#2c6fcd">
+                                                            <toggleLineColor>
+                                                                <LinearGradient endX="1.0" endY="1.0">
+                                                                    <stops>
+                                                                        <Stop color="#85acf5" />
+                                                                        <Stop color="#cd8bd3" offset="1.0" />
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </toggleLineColor>
+                                                        </JFXToggleButton>
+                                                        <Label layoutX="92.0" layoutY="16.0" text="Adicionar Vendas">
+                                                            <font>
+                                                                <Font size="13.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="254.0" layoutY="16.0" text="Adicionar Kilometros">
+                                                            <font>
+                                                                <Font size="13.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="112.0" layoutY="33.0" text="(Comerciais)">
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label layoutX="284.0" layoutY="33.0" text="(Motoristas)">
+                                                            <font>
+                                                                <Font size="11.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Line endX="119.5" endY="286.0" layoutX="-108.0" layoutY="46.0" opacity="0.62" startX="119.5" startY="-96.5" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" />
+                                                    </children>
+                                                </Pane>
+                                                <Pane fx:id="paneGestaoDiaTrabalho" layoutX="26.0" layoutY="2.0" prefHeight="323.0" prefWidth="430.0" style="-fx-background-color: #f7f5f4;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+                                                    <children>
+                                                        <VBox layoutX="80.0" layoutY="46.0" prefHeight="279.0" prefWidth="234.0" spacing="25.0">
+                                                            <children>
+                                                                <JFXTextField fx:id="codigoEmpregado" labelFloat="true" prefHeight="31.0" prefWidth="200.0" promptText="Introduzir código do empregado">
+                                                                    <focusColor>
+                                                                        <LinearGradient endX="1.0" endY="0.9">
+                                                                            <stops>
+                                                                                <Stop color="#8420ff" />
+                                                                                <Stop color="#4776e6" offset="0.007662835249042145" />
+                                                                                <Stop color="#8e56e8" offset="0.502903187581467" />
+                                                                                <Stop color="#4777e5" offset="1.0" />
+                                                                            </stops>
+                                                                        </LinearGradient>
+                                                                    </focusColor>
+                                                                </JFXTextField>
+                                                <JFXDatePicker fx:id="diaTrabalho" prefHeight="31.0" prefWidth="224.0" promptText="Introduzir Dia de Trabalho">
+                                                   <defaultColor>
+                                                      <LinearGradient endX="1.0" endY="1.0">
+                                                         <stops>
+                                                            <Stop color="#338dcd" />
+                                                            <Stop color="#b546e3" offset="1.0" />
+                                                         </stops>
+                                                      </LinearGradient>
+                                                   </defaultColor>
+                                                </JFXDatePicker>
+                                                                <JFXButton fx:id="botaoSubmeter" onAction="#submeterDiaTrabalho" prefHeight="33.0" prefWidth="218.0" style="-fx-border-color: black;" text="Submeter">
+                                                                    <ripplerFill>
+                                                                        <LinearGradient endX="1.0" endY="1.0">
+                                                                            <stops>
+                                                                                <Stop color="#009384" />
+                                                                                <Stop color="WHITE" offset="1.0" />
+                                                                            </stops>
+                                                                        </LinearGradient>
+                                                                    </ripplerFill>
+                                                                </JFXButton>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </Pane>
                                             </children>
                                         </AnchorPane>
                                     </center>
@@ -432,7 +567,7 @@
                                                         </Label>
                                                     </children>
                                                 </Pane>
-                                                <Line endX="100.0" endY="-67.0" layoutX="-96.0" layoutY="403.0" opacity="0.62" startX="100.0" startY="-446.0" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" />
+                                                <Line endX="100.0" endY="-67.0" layoutX="-96.0" layoutY="403.0" opacity="0.62" startX="99.0" startY="-454.0" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" />
                                             </children>
                                         </AnchorPane>
                                     </center>
@@ -458,171 +593,36 @@
                                 </BorderPane>
                             </children>
                         </Pane>
-                        <Pane fx:id="pane_empregados" prefHeight="381.0" prefWidth="683.0" style="-fx-background-color: #f7f5f4;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Pane fx:id="pane_home" prefHeight="345.0" prefWidth="600.0" style="-fx-background-color: #f7f5f4;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <BorderPane prefHeight="383.0" prefWidth="683.0">
+                                <BorderPane prefHeight="382.0" prefWidth="683.0">
                                     <top>
-                                        <Label alignment="CENTER" prefHeight="43.0" prefWidth="467.0" text="Menu Empregados" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
+                                        <Label alignment="CENTER" prefHeight="43.0" prefWidth="594.0" text="Menu Home" textAlignment="CENTER" BorderPane.alignment="CENTER">
                                             <font>
                                                 <Font name="Nirmala UI" size="35.0" />
                                             </font>
-                                 <textFill>
-                                    <LinearGradient endX="0.5436893203883495" endY="1.0" startX="1.0">
-                                       <stops>
-                                          <Stop color="#1392d1" />
-                                          <Stop color="#6540a3" offset="1.0" />
-                                       </stops>
-                                    </LinearGradient>
-                                 </textFill>
+                                            <textFill>
+                                                <LinearGradient endX="0.5436893203883495" endY="1.0" startX="1.0">
+                                                    <stops>
+                                                        <Stop color="#1392d1" />
+                                                        <Stop color="#6540a3" offset="1.0" />
+                                                    </stops>
+                                                </LinearGradient>
+                                            </textFill>
                                         </Label>
                                     </top>
-                                    <left>
-                                        <VBox prefHeight="348.0" prefWidth="225.0" spacing="6.0" BorderPane.alignment="CENTER">
-                                            <children>
-                                                <RadioButton fx:id="intDiaTrabalho" mnemonicParsing="false" onAction="#acaoBotao" prefHeight="45.0" prefWidth="162.0" selected="true" text="Introduzir dia de&#10;trabalho&#10;&#10;">
-                                                    <toggleGroup>
-                                                        <ToggleGroup fx:id="menuEmpregados" />
-                                                    </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="adicionarBonus" mnemonicParsing="false" onAction="#acaoBotao" prefHeight="52.0" prefWidth="165.0" text="Adicionar Bonus&#10;" toggleGroup="$menuEmpregados" />
-                                            </children>
-                                            <opaqueInsets>
-                                                <Insets />
-                                            </opaqueInsets>
-                                            <padding>
-                                                <Insets left="15.0" top="20.0" />
-                                            </padding>
-                                            <BorderPane.margin>
-                                                <Insets />
-                                            </BorderPane.margin>
-                                        </VBox>
-                                    </left>
                                     <center>
-                                        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                        <AnchorPane prefHeight="297.0" prefWidth="587.0" BorderPane.alignment="CENTER">
                                             <children>
-                                                <Pane fx:id="paneBonus" prefHeight="330.0" prefWidth="457.0" style="-fx-background-color: #f7f5f4;">
-                                                    <children>
-                                                        <Line endX="120.0" endY="295.0" layoutX="-108.0" layoutY="53.0" opacity="0.62" startX="119.5" startY="-96.5" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" />
-                                                        <VBox layoutX="97.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="264.0" spacing="25.0">
-                                                            <children>
-                                                                <JFXTextField fx:id="codigoEmpregadoVenda" labelFloat="true" prefHeight="31.0" prefWidth="200.0" promptText="Introduzir código do empregado">
-                                                                    <focusColor>
-                                                                        <LinearGradient endX="1.0" endY="0.9">
-                                                                            <stops>
-                                                                                <Stop color="#8420ff" />
-                                                                                <Stop color="#4776e6" offset="0.007662835249042145" />
-                                                                                <Stop color="#8e56e8" offset="0.502903187581467" />
-                                                                                <Stop color="#4777e5" offset="1.0" />
-                                                                            </stops>
-                                                                        </LinearGradient>
-                                                                    </focusColor>
-                                                                </JFXTextField>
-                                                                <JFXTextField fx:id="valorBonus" labelFloat="true" prefHeight="31.0" prefWidth="200.0" promptText="Introduzir o Valor da Venda ( € )">
-                                                                    <focusColor>
-                                                                        <LinearGradient endX="1.0" endY="0.9">
-                                                                            <stops>
-                                                                                <Stop color="#8420ff" />
-                                                                                <Stop color="#4776e6" offset="0.007662835249042145" />
-                                                                                <Stop color="#8e56e8" offset="0.502903187581467" />
-                                                                                <Stop color="#4777e5" offset="1.0" />
-                                                                            </stops>
-                                                                        </LinearGradient>
-                                                                    </focusColor>
-                                                                </JFXTextField>
-                                                                <JFXDatePicker fx:id="diaBonus" prefHeight="31.0" prefWidth="269.0" promptText="Introduzir Dia da Venda">
-                                                                    <defaultColor>
-                                                                        <LinearGradient endX="1.0" endY="1.0">
-                                                                            <stops>
-                                                                                <Stop color="#338dcd" />
-                                                                                <Stop color="#a224d0" offset="1.0" />
-                                                                            </stops>
-                                                                        </LinearGradient>
-                                                                    </defaultColor>
-                                                                </JFXDatePicker>
-                                                                <JFXButton fx:id="botaoSubmeterBonus" onAction="#adicionarBonus" prefHeight="33.0" prefWidth="218.0" style="-fx-border-color: black;" text="Submeter">
-                                                                    <ripplerFill>
-                                                                        <LinearGradient endX="1.0" endY="1.0">
-                                                                            <stops>
-                                                                                <Stop color="#009384" />
-                                                                                <Stop color="WHITE" offset="1.0" />
-                                                                            </stops>
-                                                                        </LinearGradient>
-                                                                    </ripplerFill>
-                                                                </JFXButton>
-                                                            </children>
-                                                        </VBox>
-                                                        <JFXToggleButton fx:id="toggleVendasDistancia" layoutX="192.0" onAction="#mudarVendasDistancia" size="8.0" text=" " toggleColor="#2c6fcd">
-                                                            <toggleLineColor>
-                                                                <LinearGradient endX="1.0" endY="1.0">
-                                                                    <stops>
-                                                                        <Stop color="#85acf5" />
-                                                                        <Stop color="#cd8bd3" offset="1.0" />
-                                                                    </stops>
-                                                                </LinearGradient>
-                                                            </toggleLineColor>
-                                                        </JFXToggleButton>
-                                                        <Label layoutX="92.0" layoutY="16.0" text="Adicionar Vendas">
-                                                            <font>
-                                                                <Font size="13.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label layoutX="254.0" layoutY="16.0" text="Adicionar Kilometros">
-                                                            <font>
-                                                                <Font size="13.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label layoutX="112.0" layoutY="33.0" text="(Comerciais)">
-                                                            <font>
-                                                                <Font size="11.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <Label layoutX="284.0" layoutY="33.0" text="(Motoristas)">
-                                                            <font>
-                                                                <Font size="11.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </children>
-                                                </Pane>
-                                                <Pane fx:id="paneGestaoDiaTrabalho" layoutX="19.0" layoutY="2.0" prefHeight="337.0" prefWidth="457.0" style="-fx-background-color: #f7f5f4;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
-                                                    <children>
-                                                        <VBox layoutX="80.0" layoutY="46.0" prefHeight="279.0" prefWidth="234.0" spacing="25.0">
-                                                            <children>
-                                                                <JFXTextField fx:id="codigoEmpregado" labelFloat="true" prefHeight="31.0" prefWidth="200.0" promptText="Introduzir código do empregado">
-                                                                    <focusColor>
-                                                                        <LinearGradient endX="1.0" endY="0.9">
-                                                                            <stops>
-                                                                                <Stop color="#8420ff" />
-                                                                                <Stop color="#4776e6" offset="0.007662835249042145" />
-                                                                                <Stop color="#8e56e8" offset="0.502903187581467" />
-                                                                                <Stop color="#4777e5" offset="1.0" />
-                                                                            </stops>
-                                                                        </LinearGradient>
-                                                                    </focusColor>
-                                                                </JFXTextField>
-                                                <JFXDatePicker fx:id="diaTrabalho" prefHeight="31.0" prefWidth="224.0" promptText="Introduzir Dia de Trabalho">
-                                                   <defaultColor>
-                                                      <LinearGradient endX="1.0" endY="1.0">
-                                                         <stops>
-                                                            <Stop color="#338dcd" />
-                                                            <Stop color="#b546e3" offset="1.0" />
-                                                         </stops>
-                                                      </LinearGradient>
-                                                   </defaultColor>
-                                                </JFXDatePicker>
-                                                                <JFXButton fx:id="botaoSubmeter" onAction="#submeterDiaTrabalho" prefHeight="33.0" prefWidth="218.0" style="-fx-border-color: black;" text="Submeter">
-                                                                    <ripplerFill>
-                                                                        <LinearGradient endX="1.0" endY="1.0">
-                                                                            <stops>
-                                                                                <Stop color="#009384" />
-                                                                                <Stop color="WHITE" offset="1.0" />
-                                                                            </stops>
-                                                                        </LinearGradient>
-                                                                    </ripplerFill>
-                                                                </JFXButton>
-                                                            </children>
-                                                        </VBox>
-                                                    </children>
-                                                </Pane>
+                                                <Label layoutX="198.0" layoutY="79.0" prefHeight="123.0" prefWidth="289.0" text="Bem-vindo à Gestão&#10;de Recursos Humanos!" textAlignment="CENTER" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="79.0">
+                                       <font>
+                                          <Font name="Nirmala UI Semilight" size="28.0" />
+                                       </font></Label>
+                                                <ImageView fitHeight="234.0" fitWidth="378.0" layoutX="225.0" layoutY="37.0" opacity="0.16" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../gestao2.png" />
+                                                    </image>
+                                                </ImageView>
                                             </children>
                                         </AnchorPane>
                                     </center>
