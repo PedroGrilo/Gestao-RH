@@ -260,6 +260,7 @@ public class Controller implements Initializable {
 
     }
 
+
     private void loadEmpresa() {
         Empresa temp = null;
         try {
@@ -272,7 +273,7 @@ public class Controller implements Initializable {
         empresa = temp;
     }
 
-    private void saveFile() {
+    public void saveFile() {
         try {
             FileOutputStream out = new FileOutputStream("empresa.dat");
             ObjectOutputStream oout = new ObjectOutputStream(out);
@@ -547,16 +548,15 @@ public class Controller implements Initializable {
 
     private void loadCategorias() {
         ArrayList<String> categorias = new ArrayList<>();
-        ObservableList<String> observableListCat;
         categorias.add("Gestor");
         categorias.add("Comercial");
-
         categorias.add("Motorista");
         categorias.add("Normal");
 
+        ObservableList<String> observableListCat;
         observableListCat = FXCollections.observableArrayList(categorias);
-        tipoEmpregadoCombo.setItems(observableListCat);
-        tipoEmpregadoComboTemp.setItems(observableListCat);
+        tipoEmpregadoCombo.setItems(observableListCat); // TOU A COLOCAR OS ITEMS NA MINHA LIST VIEW
+        tipoEmpregadoComboTemp.setItems(observableListCat); // TOU A COLOCAR OS ITEMS NA MINHA OUTRA LIST VIEW
     }
 
     private void checkNulls(String field) {
@@ -845,5 +845,7 @@ public class Controller implements Initializable {
 
     }
 
-
+    public void sairMetodoControlador() {
+        System.out.println("sair...");
+    }
 }
