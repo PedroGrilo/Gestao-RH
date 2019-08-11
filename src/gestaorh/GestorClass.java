@@ -6,14 +6,15 @@ package gestaorh;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+
+import java.io.Serializable;
+
 /**
- *
  * @author Pedro Grilo
  */
-public class GestorClass extends EmpregadoAbsClass implements Gestor {
+public class GestorClass extends EmpregadoAbsClass implements Gestor, Serializable {
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day

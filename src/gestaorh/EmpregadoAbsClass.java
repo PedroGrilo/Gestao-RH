@@ -5,15 +5,17 @@ package gestaorh;
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
+
 import gestaorh.exceptions.GestaoErro;
 import gestaorh.exceptions.GestaoException;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
  * @author Pedro Grilo
  */
-public abstract class EmpregadoAbsClass implements Empregado {
+public abstract class EmpregadoAbsClass implements Empregado, Serializable {
 
     private String nome;
     private int codigo;
@@ -21,7 +23,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     private ArrayList<Date> datasQueTrabalhou;
 
     /**
-     *
      * @param nome
      * @param codigo
      * @param day
@@ -36,7 +37,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @return
      */
     public ArrayList<Date> getDatasQueTrabalhou() {
@@ -44,7 +44,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @param mes
      * @param ano
      * @return
@@ -60,7 +59,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @return
      */
     public int getAnosTrabalho() {
@@ -68,7 +66,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @return
      */
     public int getDiasTrabalhoTotal() {
@@ -77,7 +74,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @param dia
      * @param mes
      * @param ano
@@ -97,7 +93,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @return
      */
     public String getNome() {
@@ -105,7 +100,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @param nome
      */
     public void setNome(String nome) {
@@ -113,7 +107,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @return
      */
     public int getCodigo() {
@@ -121,7 +114,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @param codigo
      */
     public void setCodigo(int codigo) {
@@ -129,7 +121,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @return
      */
     public Date getDataEntradaEmpresa() {
@@ -137,7 +128,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     }
 
     /**
-     *
      * @param mes
      * @param ano
      * @return
@@ -145,7 +135,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
     public abstract double getBonus(int mes, int ano);
 
     /**
-     *
      * @param valor
      * @param mes
      * @param ano
@@ -154,6 +143,6 @@ public abstract class EmpregadoAbsClass implements Empregado {
 
     @Override
     public String toString() {
-        return "Codigo: " + codigo + " - Nome: "+nome;
+        return "Codigo: " + codigo + " - Nome: " + nome;
     }
 }

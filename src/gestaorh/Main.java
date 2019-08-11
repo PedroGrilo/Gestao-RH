@@ -1,34 +1,19 @@
-/*
-TODO::
-
-
- do while : nao sair do menu ao validar a data
-
- - menu empregado : "deseja inserir mais dias?S/N"
-
- - ficheiro dos empregados contratados*/
 package gestaorh;
 
 import gestaorh.exceptions.GestaoErro;
 import gestaorh.exceptions.GestaoException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.Scanner;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * @author creep
  */
 public class Main {
 
-    private static final String FILE_NAME = "empregados.txt";
+    private static final String FILE_NAME = "empresa.dat";
     private static final String ERRO_LER_FICHEIRO = "Erro ao ler ficheiro!";
     private static final String FICHEIRO_VAZIO = "Ficheiro vazio.!";
     private static final String ERRO_SAVE = "Erro ao salvar ficheiro!";
@@ -67,16 +52,17 @@ public class Main {
      * @throws FileNotFoundException
      */
     public static void saveEmpregadosFile(Empresa empresa, String sourceFile) throws FileNotFoundException {
-        PrintWriter out = new PrintWriter(sourceFile);
-        for (Empregado e : empresa.getEmpregado()) {
-            out.println(empresa.getCategoria(e));
-            out.println(e.getNome());
-            out.println(e.getCodigo());
-            out.println(e.getDataEntradaEmpresa().getDay());
-            out.println(e.getDataEntradaEmpresa().getMonth());
-            out.println(e.getDataEntradaEmpresa().getYear());
+        try {
+            FileOutputStream out = new FileOutputStream(FILE_NAME);
+            ObjectOutputStream oout = new ObjectOutputStream(out);
+            oout.writeObject(empresa);
+            oout.close();
+            System.out.println(SUCCESS_SAVE);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        out.close();
     }
 
     /**
@@ -85,45 +71,18 @@ public class Main {
      * @throws FileNotFoundException
      * @throws NoSuchElementException
      */
-    public static void lerEmpregadosFile(Empresa empresa, String file) throws FileNotFoundException, NoSuchElementException {
-        System.out.println(LOADING_FILE);
-        FileReader fich = new FileReader(file);
-        Scanner fin = new Scanner(fich);
-
-        while (fin.hasNextLine()) {
-
-            String cat = fin.nextLine().toUpperCase();
-
-            String nome = fin.nextLine();
-
-            String codigo = fin.nextLine();
-
-            String dia = fin.nextLine();
-
-            String mes = fin.nextLine();
-
-            String ano = fin.nextLine();
-
-            switch (Categorias.valueOf(cat)) {
-                case NORMAL:
-                    empresa.addEmpregadoNormal(nome, parseInt(codigo), parseInt(dia), parseInt(mes), parseInt(ano));
-                    break;
-                case COMERCIAL:
-                    empresa.addEmpregadoComercial(nome, parseInt(codigo), parseInt(dia), parseInt(mes), parseInt(ano));
-                    break;
-                case MOTORISTA:
-                    empresa.addEmpregadoMotorista(nome, parseInt(codigo), parseInt(dia), parseInt(mes), parseInt(ano));
-                    break;
-                case GESTOR:
-                    empresa.addEmpregadoGestor(nome, parseInt(codigo), parseInt(dia), parseInt(mes), parseInt(ano));
-                    break;
-                default:
-                    throw new GestaoException(GestaoErro.ERRO_CATEGORIA);
-            }
-
+    public static Empresa lerEmpregadosFile() {
+        Empresa temp = null;
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME));
+            temp = (Empresa) ois.readObject();
+            System.out.println(SUCCESS_SAVE);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            return temp;
         }
 
-        fin.close();
     }
 
     public static void empregadosToBeAdd(Empresa empresa) {
@@ -242,7 +201,6 @@ public class Main {
 
     private static void verificarDatas(Empresa empresa, int codigo, Date data1, Date data2) {
         Date dataEntradaEmpresa = empresa.getEmpregado(codigo).getDataEntradaEmpresa();
-
         if ((!empresa.verifyDate(data2, dataEntradaEmpresa)) || (!empresa.verifyDate(data1, data2))) {
             throw new GestaoException(GestaoErro.DATA_INVALIDA);
         }
@@ -436,11 +394,11 @@ public class Main {
         UserInput ui = new UserInput();
         Empresa empresa = new EmpresaClass();
         try {
-            lerEmpregadosFile(empresa, FILE_NAME);
-        } catch (IOException e) {
-            System.out.println(ERRO_LER_FICHEIRO);
+            empresa = lerEmpregadosFile();
         } catch (NoSuchElementException nF) {
             System.out.println(FICHEIRO_VAZIO);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         do {
             try {

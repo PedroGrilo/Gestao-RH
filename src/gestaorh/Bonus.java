@@ -5,18 +5,19 @@ package gestaorh;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+import java.io.Serializable;
+
 /**
- *
  * @author Pedro Grilo
  */
-public class Bonus {
+public class Bonus implements Serializable {
 
     private int ano;
     private int mes;
     private double valor;
 
     /**
-     *
      * @param ano
      * @param mes
      * @param valor
@@ -28,7 +29,6 @@ public class Bonus {
     }
 
     /**
-     *
      * @return
      */
     public int getAno() {
@@ -36,7 +36,6 @@ public class Bonus {
     }
 
     /**
-     *
      * @param ano
      */
     public void setAno(int ano) {
@@ -44,7 +43,6 @@ public class Bonus {
     }
 
     /**
-     *
      * @return
      */
     public int getMes() {
@@ -52,7 +50,6 @@ public class Bonus {
     }
 
     /**
-     *
      * @param mes
      */
     public void setMes(int mes) {
@@ -60,7 +57,6 @@ public class Bonus {
     }
 
     /**
-     *
      * @return
      */
     public double getValor() {
@@ -68,7 +64,6 @@ public class Bonus {
     }
 
     /**
-     *
      * @param valor
      */
     public void setValor(double valor) {
